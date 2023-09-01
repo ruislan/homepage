@@ -15,7 +15,7 @@ const menus = [
 export default function Header() {
   let pathname = usePathname() || '/';
   if (pathname.includes('/posts/')) pathname = '/posts';
-  else if (pathname.includes('/works/')) pathname = '/work';
+  else if (pathname.includes('/works/')) pathname = '/works';
 
   return (
     <header>

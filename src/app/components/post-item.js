@@ -7,7 +7,7 @@ export default function PostItem({ post, endEnhancer, }) {
                     {post.title}
                 </p>
                 <p className='text-neutral-600 dark:text-neutral-400'>
-                    {`${Number(post.viewCount || 0).toLocaleString()} 次浏览`}
+                    {`${Number(post.views || 0).toLocaleString()} 次浏览`}
                 </p>
             </div>
             {endEnhancer}
