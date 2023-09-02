@@ -5,6 +5,9 @@ import WorkCard from './components/work-card';
 import Paragraph from './components/paragraph';
 import ToolTip from './components/tooltip';
 
+// refresh every 1 hour
+export const revalidate = 3600;
+
 export default async function Page() {
   const posts = await database.Post.getTopViewPosts();
   const works = await database.Work.getTopWorks();

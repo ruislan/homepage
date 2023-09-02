@@ -1,12 +1,15 @@
 .fleet
 .idea
 .vscode
+.git
+.gitignore
+.dockerignore
+.next
 node_modules
 docs
-.git
 prisma/*.db
 temp
 public/uploads
 NOTE.md
+Dockerfile
 build
-.gitignore
