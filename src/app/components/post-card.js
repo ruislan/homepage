@@ -1,4 +1,4 @@
-export default function PostItem({ post, endEnhancer, }) {
+export default function PostCard({ post, endEnhancer, }) {
     return (
         <a href={`/posts/${post.slug}`}
             className='border border-neutral-700 bg-neutral-800 rounded flex items-center justify-between px-3 py-4'>

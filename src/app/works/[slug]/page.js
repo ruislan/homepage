@@ -1,17 +1,26 @@
-import Paragraph from "@/app/components/paragraph";
-import database from "@/lib/database";
+import { notFound } from 'next/navigation';
+
+import Paragraph from '@/app/components/paragraph';
+import database from '@/lib/database';
 
 export default async function PostsPage({ params }) {
     const work = await database.Work.getWork(params.slug);
-    if (!work) return null;
+    if (!work) notFound();
     return (
-        <div>
-            <h1 className='font-bold text-2xl mb-8'>{work.title}</h1>
-            <div>{work.likes}</div>
+        <div className='flex flex-col box-border'>
+            <h1 className='font-bold text-2xl'>{work.title}</h1>
+            <div className="flex justify-between items-center mt-2 mb-2 text-sm">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {work.date}
+                </p>
+                <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+                    {`${Number(work.stars || 0).toLocaleString()} stars`}
+                </p>
+                {/* screenshots */}
+            </div>
             <Paragraph>
                 {work.content}
             </Paragraph>
-            {/* screenshots */}
         </div>
     );
 }

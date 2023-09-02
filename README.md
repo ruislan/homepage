@@ -14,4 +14,9 @@ pnpm prisma db push
 pnpm dev:turbo
 ```
 
-Rename .env.example to .env, setup your admin password
+Rename .env.example to .env
+
+## Add Post
+
+* create a html file, save it in the dir '/content'。
+* add an item in the lib/database.js => Post => data, e.g. { slug: 'test', title: 'test', summary: 'test', date: 'yyyy-MM-dd' }。

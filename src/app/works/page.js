@@ -1,5 +1,5 @@
 import database from "@/lib/database";
-import WorkItem from "../components/work-item";
+import WorkCard from "../components/work-card";
 
 export const metadata = {
     title: '工作',
@@ -12,8 +12,8 @@ export default async function WorksPage() {
         <div>
             <h1 className='font-bold text-2xl mb-8'>我的工作</h1>
 
-            <div className='flex flex-col'>
-                {works.map((work, index) => <WorkItem key={index} work={work} />)}
+            <div className='grid grid-cols-2 my-6 gap-4 w-full'>
+                {works.map((work, index) => <WorkCard key={index} work={work} />)}
             </div>
         </div>
     );

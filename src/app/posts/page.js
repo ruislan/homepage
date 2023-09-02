@@ -1,5 +1,5 @@
-import prisma from '@/lib/prisma';
-import PostItem from '../components/post-item';
+
+import PostCard from '../components/post-card';
 import database from '@/lib/database';
 
 export const metadata = {
@@ -14,7 +14,7 @@ export default async function PostsPage() {
             <h1 className='font-bold text-2xl mb-8'>我的博客</h1>
 
             <div className='flex flex-col'>
-                {posts.map((post) => <PostItem key={post.slug} post={post} />)}
+                {posts.map((post) => <PostCard key={post.slug} post={post} />)}
             </div>
         </div>
     );

@@ -45,7 +45,7 @@ export default database = {
     Work: {
         data: [
             {
-                slug: 'test', title: 'test', summary: 'test', date: '2023-09-09',
+                slug: 'test', title: 'test', summary: 'test', date: '2023-09-09', cover: '',
                 content: `just test`,
                 screenshots: [
                     '', '',

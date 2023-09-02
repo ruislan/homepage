@@ -1,8 +1,8 @@
 import database from '@/lib/database';
 
-import PostItem from './components/post-item';
+import PostCard from './components/post-card';
+import WorkCard from './components/work-card';
 import Paragraph from './components/paragraph';
-import WorkItem from './components/work-item';
 
 export default async function Page() {
   const posts = await database.Post.getTopViewPosts();
@@ -21,7 +21,7 @@ export default async function Page() {
           这些东西包含了我学习获得知识，研发遇到的坑，以及一些突发奇想和各种感悟，我尽量想简单地写下来，在此时此刻此地分享。
         </Paragraph>
         <div className='flex flex-col my-6 space-y-4 w-full'>
-          {posts.map(post => <PostItem key={post.slug} post={post} endEnhancer={
+          {posts.map(post => <PostCard key={post.slug} post={post} endEnhancer={
             <div className='text-neutral-300'>
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z' fill='rgba(255,255,255,1)'></path></svg>
             </div>}
@@ -34,8 +34,8 @@ export default async function Page() {
           最近 2、3 年时间，开始利用一些闲暇时间做一些东西，也算是边学习边练手。
           这些东西包括一些语言的学习，以及对一些有意思的项目进行模仿，例如 Steam Community 。
         </Paragraph>
-        <div className='flex flex-col my-6 space-y-4 w-full'>
-          {works.map(work => <WorkItem key={work.slug} work={work} />)}
+        <div className='grid grid-cols-2 my-6 gap-4 w-full'>
+          {works.map(work => <WorkCard key={work.slug} work={work} />)}
         </div>
       </section>
 
