@@ -1,0 +1,121 @@
+<h3>概述</h3>
+<p>记录了各种好玩的linux命令或者安装工具。会随时补充，作为一个手册吧。</p>
+<h3> Cowsay</h3>
+<p>这个工具主要功能是在终端输出一个图形，默认是奶牛，并说出一段话。</p>
+
+<pre lang="shell">
+$sudo apt install cowsay -y
+$cowsay -f dragon "I love this world"
+</pre>
+
+<h3>CMatrix</h3>
+<p>
+    这个工具主要功能是让你的终端变成一个像黑客帝国一样的屏幕保护，非常炫酷。
+</p>
+<pre lang="shell">
+$sudo apt install cmatrix
+$cmatrix
+</pre>
+
+<h3>>MPlayer</h3>
+
+<p>这个工具可以在你的终端看AVI，额，具体放出来什么效果，请自行琢磨，这个工具有几百M，请慎重。</p>
+<pre lang="shell">
+$sudo apt install mplayer
+$mplayer -vo caca xx.avi
+</pre>
+
+<h3>slurm</h3>
+
+<p>这个工具用来查看网卡使用情况</p>
+
+<pre lang="shell">
+$sudo apt install slurm
+$slurm -i wlan0
+</pre>
+
+<h3>htop</h3>
+
+<p>这个工具非常人性化，是top命令的高级版本，查看到的内容非常舒服，一看就懂，强烈推荐。</p>
+
+<pre lang="shell">
+$sudo apt install htop
+$htop
+</pre>
+
+<h3>iptraf</h3>
+
+<p>这个工具用来查看所有网络的流量状况，也是比较人性化，操作简单。</p>
+
+<pre lang="shell">
+$sudo apt install iptraf
+$sudo iptraf-ng
+</pre>
+
+<p>开启之后会进入一个简洁的UI界面，有好几个监控选项，自行选择。</p>
+
+<h3>aafire</h3>
+
+<p>这个工具也算是和cmatrix一样的屏保装逼利器，执行会有一个火焰不断燃烧，看起来也是狂霸酷炫拽。</p>
+
+<pre lang="shell">
+$sudo apt install aafire
+$aafire
+</pre>
+
+<h3>fortune</h3>
+
+<p>这个工具就是个没事儿看看名人名言的工具，执行后会随机出现一个名人或者非名人说的话，很有意思，同时你还可以通过管道命令和cowsay、lolcat等连用</p>
+
+<pre lang="shell">
+$sudo apt install fortune
+$fortune | lolcat
+</pre>
+
+<h3>lolcat</h3>
+
+<p>这个工具能让文字变成不同的颜色。</p>
+<pre lang="shell">
+$sudo apt install lolcat
+$fortune | lolcat
+</pre>
+
+<h3>cal</h3>
+
+<p>这个工具能够直接在终端中显示日历表，很酷，很简洁。</p>
+
+<pre lang="shell">
+$cal
+</pre>
+
+<h3>Pi</h3>
+
+<p>能够打印PI，可以设置位数，喜欢没事儿背背Pi的，可以搞起来。</p>
+
+<pre lang="shell">
+$pi 50
+3.1415926535897932384626433832795028841971693993751
+</pre>
+
+<h3>rlg</h3>
+
+<p>生成随机的假冒的身份和地址。</p>
+
+<pre lang="shell">
+$sudo apt install rig
+$rlg
+Nelson Norman
+210 Tomkins Blcd
+Vancouver, WA 98661
+(206) xxx-xxxx
+</pre>
+
+<h3>查询天气</h3>
+
+<p>对，就是查询天气，通过curl来实现。在终端中的结果是非常炫酷的哟。</p>
+
+<pre lang="shell">
+$ curl -4 http://wttr.in
+</pre>
+
+<h3>to be continued...</h3>

@@ -18,5 +18,5 @@ Rename .env.example to .env
 
 ## Add Post
 
-* create a html file, save it in the dir '/content'。
+* create a html file, save it in the dir '/content/posts'。
 * add an item in the lib/database.js => Post => data, e.g. { slug: 'test', title: 'test', summary: 'test', date: 'yyyy-MM-dd' }。

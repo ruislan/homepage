@@ -3,6 +3,7 @@ import database from '@/lib/database';
 import PostCard from './components/post-card';
 import WorkCard from './components/work-card';
 import Paragraph from './components/paragraph';
+import ToolTip from './components/tooltip';
 
 export default async function Page() {
   const posts = await database.Post.getTopViewPosts();
@@ -22,8 +23,8 @@ export default async function Page() {
         </Paragraph>
         <div className='flex flex-col my-6 space-y-4 w-full'>
           {posts.map(post => <PostCard key={post.slug} post={post} endEnhancer={
-            <div className='text-neutral-300'>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z' fill='rgba(255,255,255,1)'></path></svg>
+            <div className='text-neutral-300 fill-neutral-300 w-4 h-4'>
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z' fill='inherit'></path></svg>
             </div>}
           />)}
         </div>
@@ -49,8 +50,11 @@ export default async function Page() {
 
       <section>
         <Paragraph>
-          最后，如果你觉得我的分享还不错，对你有帮助，你也可以给我打赏(ETH:0x73028936Fd29467E229A585611c37bB9042B10EB)。
-          或者，联系并雇佣我。
+          最后，如果你觉得我的分享还不错，对你有帮助，你也可以给我
+          <ToolTip content={'ETH:0x73028936Fd29467E229A585611c37bB9042B10EB'}>
+            <span className='font-bold underline underline-offset-4 cursor-pointer'>打赏</span>
+          </ToolTip>
+          ，或者联系并雇佣我。
         </Paragraph>
       </section>
     </div>
