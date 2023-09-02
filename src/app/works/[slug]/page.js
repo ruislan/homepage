@@ -1,11 +1,9 @@
-import { notFound } from 'next/navigation';
-
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
 
 export default async function PostsPage({ params }) {
     const work = await database.Work.getWork(params.slug);
-    if (!work) notFound();
+    if (!work) return 'Not Found';
     return (
         <div className='flex flex-col box-border'>
             <h1 className='font-bold text-2xl'>{work.title}</h1>

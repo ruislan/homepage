@@ -1,12 +1,10 @@
-import { notFound } from 'next/navigation';
-
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
 
 export default async function PostsPage({ params }) {
     await database.Post.incrementViews(params.slug);
     const post = await database.Post.getPost(params.slug);
-    if (!post) notFound();
+    if (!post) return 'Not Found';
 
     return (
         <div className='flex flex-col box-border'>
