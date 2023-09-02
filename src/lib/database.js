@@ -1,7 +1,7 @@
 import prisma from './prisma';
 import fs from 'fs/promises';
 
-export default database = {
+const database = {
     Post: {
         data: [
             { slug: 'linux-cmd', title: '好玩的Linux指令', summary: '好玩的Linux指令', date: '2019-04-26' },
@@ -81,3 +81,5 @@ export default database = {
         }
     }
 };
+
+export default database;
