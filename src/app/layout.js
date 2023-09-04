@@ -1,10 +1,10 @@
+import Header from './header';
 import Footer from './footer';
 import './globals.css';
-import Header from './header';
 
 export const metadata = {
   title: 'Rui',
-  description: '开发者, 创新者，写手',
+  description: '开发者, 创新者，分享者，乐天派',
 }
 
 export default function RootLayout({ children }) {

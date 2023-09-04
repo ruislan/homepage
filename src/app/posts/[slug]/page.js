@@ -13,10 +13,10 @@ export default async function PostPage({ params }) {
         <div className='flex flex-col box-border'>
             <h1 className='font-bold text-2xl'>{post.title}</h1>
             <div className="flex justify-between items-center mt-2 mb-2 text-sm">
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-neutral-400">
                     {post.date}
                 </p>
-                <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+                <p className='text-sm text-neutral-400'>
                     {`${Number(post.views || 0).toLocaleString()} 次浏览`}
                 </p>
             </div>

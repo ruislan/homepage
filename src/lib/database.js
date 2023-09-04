@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 const database = {
     Post: {
         data: [
+            { slug: 'talk-about-digitalization', title: '浅谈数字化', summary: '简单地综合阐述一下数字化', date: '2023-02-24' },
             { slug: 'linux-cmd', title: '好玩的Linux指令', summary: '好玩的Linux指令', date: '2019-04-26' },
         ],
         async getPosts() {

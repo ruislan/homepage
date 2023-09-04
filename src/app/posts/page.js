@@ -13,7 +13,7 @@ export default async function PostsPage() {
         <div>
             <h1 className='font-bold text-2xl mb-8'>我的博客</h1>
 
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-4'>
                 {posts.map((post) => <PostCard key={post.slug} post={post} />)}
             </div>
         </div>
