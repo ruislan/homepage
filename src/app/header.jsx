@@ -10,6 +10,7 @@ const menus = [
   { path: '/works', name: '工作' },
   { path: '/posts', name: '博客' },
   { path: '/gears', name: '装备' },
+  { path: '/privacy', name: '声明' },
 ];
 
 export default function Header() {

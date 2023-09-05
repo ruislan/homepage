@@ -20,6 +20,9 @@ export default async function PostPage({ params }) {
                     {`${Number(post.views || 0).toLocaleString()} 次浏览`}
                 </p>
             </div>
+            <div className='my-6'>
+                <img className='w-full h-auto rounded-lg object-cover object-center aspect-[2/1]' src={post.hero} />
+            </div>
             <Paragraph dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
     );

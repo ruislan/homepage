@@ -1,7 +1,7 @@
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
 
-export default async function PostsPage({ params }) {
+export default async function WorksPage({ params }) {
     const work = await database.Work.getWork(params.slug);
     if (!work) return 'Not Found';
     return (
