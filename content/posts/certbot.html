@@ -1,0 +1,68 @@
+<h2>1. 引子</h2>
+<p>我曾使用acme.sh的简化方案，让新玩家在10分钟以内能够配置ssl证书到自己的域名下面。我自己也这么配置了我的域名，非常棒。但是，到了60天后，acme.sh并没有像它文档中所描述的什么都不用做，能够自动更新证书，连续出现了两次断档，导致我的域名过期的事件，所以我不得不重新寻找新的方案，还好我找到了。</p>
+<h2>2. 什么是certbot</h2>
+<p>和acme.sh一样，certbot是一个能够自动安装、部署、更新let's encrypt SSL证书的工具，同时，也是let's
+    encrypt官网强烈推荐的新入坑玩家的工具。既然是新手工具，那一定是方便、简单和实用的。那么我们来看看怎么用这个certbot。</p>
+<h2>3. 安装、生成、发布、更新</h2>
+<p>首先，我们需要进入certbot官方网站 <a href="https://certbot.eff.org">https://certbot.eff.org</a>
+    ，官网十分贴心，一上来就让你选择你使用的是什么服务软件和操作系统。</p>
+<p>常见的apache和nginx赫然在列，有这两个就覆盖了大部分的使用者。操作系统也覆盖了大部分的使用者，这个看官自行上官网查看。</p>
+<p>这里我按照我自己的网站的情况选择了ubuntu 14.04操作系统和nginx。进入安装界面之后，我被其简单和快捷震惊了。</p>
+<h3>3.1 安装</h3>
+<p>在Ubuntu上，可以通过ppa来进行安装</p>
+<pre><code class="language-shell">$ sudo apt-get update
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install python-certbot-nginx
+</code></pre>
+<h3>3.2 生成</h3>
+<p>使用certbot生成和部署完全可以统一完成，当然你也可以手动分开为两步，由于我之前已经在nginx中配置过ssl了，所以，我选择了分开为两步。</p>
+<p>如果你需要自动完成生成和部署，则只需要一行命令：</p>
+<pre><code class="language-shell">$ sudo certbot --nginx
+</code></pre>
+<p>如果你需要自己来部署，还是只需要一行命令：</p>
+<pre><code class="language-shell">$ sudo certbot --nginx certonly
+</code></pre>
+<p>需要注意的是，这里的命令是根据你选择的服务软件和操作系统环境来决定的，所以具体的命令你需要到certbot官网去查看。</p>
+<p>当你键入命令之后，certbot会自动扫描nginx下的配置，并找到server_name。</p>
+<p>如果你想为所有的server_name都生成，则直接敲击“Enter”即可，如果要选定某个，则直接输入具体的数字。如果你选择的server_name中有类似我这样的，域名相同的多个server_name，certbot会聪明的帮你申请泛域名模式的SSL。
+</p>
+<p>至此，证书就生成了，证书的存放地址以及certbot的相关配置都在目录 “/etc/letsencrypt/” 下，而正在使用的证书放在目录 “/etc/letsencrypt/live/” 下。</p>
+<h3>3.3 部署</h3>
+<p>生成证书之后，如果你是自动部署的话，certbot已经帮你配置到了nginx中。至于手动配置，我这里简单列出来我的配置。</p>
+<pre><code class="language-shell">
+server {
+        listen 80;
+        server_name ruislan.com www.ruislan.com;
+        return 301 https://$server_name$request_uri;
+}
+
+server {
+        listen 443 ssl;
+        server_name ruislan.com www.ruislan.com;
+        charset utf-8;
+
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_certificate /etc/letsencrypt/live/ruislan.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/ruislan.com/privkey.pem;
+        ...
+}
+</code></pre>
+<p>配置完成之后，别忘了测试配置文件，并重启服务。</p>
+<pre><code class="language-shell">$ sudo nginx -t
+$ sudo nginx -s reload
+</code></pre>
+<h3>3.4 更新</h3>
+<p>使用certbot更新非常简单，当你完成生成证书之后，certbot会自动在你的cron配置中添加更新语句，如果你需要手动更新，也只需要一条命令即可。</p>
+<pre><code class="language-shell">$ $ sudo certbot renew
+</code></pre>
+<h2>4. 结语</h2>
+<p>通过使用certbot之后，我发现确实certbot非常的简单和容易上手，不需要10分钟，你只需要不到5分钟，整个操作就完成了。</p>
+<p>简单实用即真理。</p>
+<h2>a.资源引用</h2>
+<ul>
+    <li><a href="https://github.com/Neilpang/acme.sh">acme.sh</a></li>
+    <li><a href="http://https//certbot.eff.org">certbot</a></li>
+</ul>

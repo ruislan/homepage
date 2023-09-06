@@ -34,7 +34,7 @@ export default function GearsPage() {
                     <li>DBeaver</li>
                     <li>Chrome / Edge</li>
                     <li>Motrix</li>
-                    <li>Termius</li>
+                    <li>Electerm</li>
                     <li>XMind</li>
                 </ul>
             </Paragraph>

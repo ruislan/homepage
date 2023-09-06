@@ -9,6 +9,15 @@ const database = {
             { slug: 'architecture-core', title: '架构那些事儿 - 核心思想', summary: '架构师，架构设计，如何做架构', date: '2021-05-19', hero: '/images/posts/architecture-core/hero.jpg' },
             { slug: 'architecture-guide', title: '架构那些事儿 - 工作指南', summary: '架构师，架构设计，如何做架构', date: '2021-05-18', hero: '/images/posts/architecture-guide/hero.jpg' },
             { slug: 'talent-six-tao', title: '人才”六道“之说', summary: '如何才是一个优秀的人？看看我的人才”六道“之说。', date: '2020-11-14', hero: '/images/posts/talent-six-tao/hero.jpg' },
+            { slug: 'remember-200-digits', title: '记住200个随机数字 ? !', summary: '如何在30分钟内记住200个随机数字', date: '2020-11-05', hero: '/images/posts/remember-200-digits/hero.jpg' },
+            { slug: 'read-success', title: '读书笔记之《成事》', summary: '看起来不累，也有收获，不厚重，但细细品味，会有不小的感悟', date: '2019-06-12', hero: '/images/posts/read-success/hero.jpg' },
+            { slug: 'work-method-doing', title: '我的工作方法论 - 关于事', summary: '工作当然最重要的还是把事儿办好，做得有效率，有质量。如何才能有效率有质量，我有一些方法观供大家参考。', date: '2019-05-28', hero: '/images/posts/work-method-doing/hero.jpg' },
+            { slug: 'read-devops', title: '读书笔记之《DevOps实践指南》', summary: '我认为我和我的团队应该去实践DevOps，我认为这就是当下最好的知识，我们每个人都应该学习。', date: '2019-05-20', hero: '/images/posts/read-devops/hero.jpg' },
+            { slug: 'work-method-human', title: '我的工作方法论 - 关于人', summary: '在工作中，免不了和人打交道，所以关于人，应该有一些基本的原则。', date: '2019-05-13', hero: '/images/posts/work-method-human/hero.jpg' },
+            { slug: 'work-method-value', title: '我的工作方法论 - 核心价值观', summary: '作为领导需要什么样的员工，作为员工，需要进入什么样的企业。', date: '2019-05-06', hero: '/images/posts/work-method-value/hero.jpg' },
+            { slug: 'cicd-jvm', title: '用野路子实现JVM项目CI/CD', summary: '用野路子实现JVM项目CI/CD', date: '2019-04-26', hero: '/images/posts/cicd-jvm/hero.jpg' },
+            { slug: 'certbot', title: 'Let\'s Encrypt - certbot', summary: 'certbot非常的简单和容易上手，不需要10分钟，你只需要不到5分钟，整个操作就完成了。简单实用即真理。', date: '2018-11-05', hero: '/images/posts/certbot/hero.jpg' },
+            { slug: 'develop-smart-contract', title: '智能合约开发手记', summary: '最近用EVM做了不少智能合约的项目，有lotto，vote，dao等等，说说感受吧。', date: '2018-09-12', hero: '/images/posts/develop-smart-contract/hero.jpg' },
             { slug: 'linux-cmd', title: '好玩的Linux指令', summary: '好玩的Linux指令', date: '2019-04-26', hero: '' },
         ],
         async getPosts() {
@@ -84,6 +93,29 @@ const database = {
             // chose most like
             return this.data.slice(0, limit);
         }
+    },
+    Skill: {
+        data: [
+            { title: 'Java' },
+            { title: 'Kotlin' },
+            { title: 'Spring' },
+            { title: 'Rust' },
+            { title: 'JavaScript' },
+            { title: 'Git' },
+            { title: 'NodeJS' },
+            { title: 'Fastify' },
+            { title: 'Prisma' },
+            { title: 'React' },
+            { title: 'Vite' },
+            { title: 'MySQL' },
+            { title: 'MongoDB' },
+            { title: 'Redis' },
+            { title: 'RabbitMQ' },
+            { title: 'Docker' },
+        ],
+        async getSkills() {
+            return this.data;
+        },
     }
 };
 

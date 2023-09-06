@@ -4,6 +4,7 @@ import PostCard from './components/post-card';
 import WorkCard from './components/work-card';
 import Paragraph from './components/paragraph';
 import ToolTip from './components/tooltip';
+import SkillCard from './components/skill-card';
 
 // refresh every 1 hour
 export const revalidate = 3600;
@@ -11,6 +12,7 @@ export const revalidate = 3600;
 export default async function Page() {
   const posts = await database.Post.getTopViewPosts();
   const works = await database.Work.getTopWorks();
+  const skills = await database.Skill.getSkills();
 
   return (
     <div>
@@ -48,7 +50,9 @@ export default async function Page() {
           入行初期最喜欢的是 Java ，迷恋了 10 多年，从 JDK1.2 走到了现在，后来被 Kotlin 的语法糖和高效迷得神魂颠倒，再后来痴迷于 Rust 的设计思想，
           并且为了学习它疯狂做了几百道 LeetCode 题目，最近一段时间在学习和使用这些技术：NodeJS，Fastify，Prisma，React，Vite，NextJS。
         </Paragraph>
-        {/* list skills */}
+        <div className='flex flex-wrap my-6 gap-2 w-full'>
+          {skills.map(skill => <SkillCard key={skill.title} skill={skill} />)}
+        </div>
       </section>
 
       <section>

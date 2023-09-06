@@ -1,7 +1,7 @@
 export default function WorkCard({ work }) {
     return (
         <a href={`/works/${work.slug}`}
-            className='border border-neutral-700 bg-neutral-800 rounded flex flex-col items-center'>
+            className='border border-neutral-700 bg-neutral-800 rounded flex flex-col items-center hover:border-neutral-600 shadow transition-all duration-300'>
             <div className='w-full h-40 rounded'>
                 <img src={work.cover} className='rounded w-full h-full' />
             </div>

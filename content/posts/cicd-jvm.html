@@ -1,0 +1,160 @@
+<h2>概述</h2>
+<p>这一篇是一个野路子CI/CD，并不是正规化的，因为实现的方式并不是想象中的使用jenkins/teamcity/gitlab/gocd/etc...，当然docker是必不可少的。方案也具备一定的针对性，但是思路才是最重要的不是？
+</p>
+<p>为什么没有使用流行工具呢？</p>
+<ul>
+    <li>jenkins老是安装插件失败，我真的很郁闷，这是我前几年的傍身工具，居然现在用不上。</li>
+    <li>teamcity很好，我的新宠，但是构建的docker文件必须放到hub.docker.com中</li>
+    <li>gocd太难玩，还没入门</li>
+    <li>自建SSL支撑的Docker registry这一路子还不熟</li>
+    <li>Git代码在云端(Github、Gitlab、Coding.net、Gitee、etc...)</li>
+</ul>
+<p>但是我们要实现“每60秒检查一次云端的Git源码的对应分支是否有更新，如果有，则更新当前分支源码，并清理之前的构建，重新构建，对产出的Jar包构建docker镜像，并使用这个镜像启动新的docker
+    container”的需求，其实简单来说就是我这更新了代码，本地测试服务器就自动打包部署了。</p>
+<p>既然知道需求了，接下来就是思考方案了。</p>
+<h2>方案</h2>
+<h3>CI/CD tools</h3>
+<p>使用CI/CD工具是我最初的方案，毕竟jenkins用得老6了，所以方案就是</p>
+<pre><code>Jenkins -&gt; clean -&gt; build -&gt; build image -&gt; upload image
+</code></pre>
+<p>这样一来，每次都会Push新的docker image到hub中，这个方案简直好得很</p>
+<ul>
+    <li>由于JVM项目一般都有profile的说法，所以一个image，通过传递不同的profile就能在不同环境正确运行。</li>
+    <li>docker image在hub中，这样无论在什么地方，都可以去hub中下载到这个image</li>
+    <li>ci/cd tools还能根据版本来给image tag不同的版本，对于运维来说可以随时切换不同的版本进行运行。</li>
+    <li>每一步错误都能通过邮件短信等发送到相关责任人，个别Tools还有贴心的钉钉插件通知你哦。</li>
+</ul>
+<p>整个都是一条龙服务，完美无缺。但是，有一个问题就是，我们有好几个JVM项目，但是免费的hub只能存储一个image，老板不给钱，这是硬伤。所以有了下面的野路子解决方案。</p>
+<h3>Shell it！</h3>
+<p>回到原始时代，一切都是我们自己来吧。命令行也有春天。方案就是</p>
+<pre><code>crontab(per 60s) -&gt; deploy.sh
+</code></pre>
+<p>而这个deploy.sh就包含了</p>
+<pre><code>git pull -&gt; clean -&gt; build -&gt; docker build -&gt; docker run
+</code></pre>
+<p>这个野路子方案就没有上一个方案好了，他只解决了基本需求</p>
+<ul>
+    <li>能够定时更新代码，并打包部署</li>
+</ul>
+<p>他没有解决的是</p>
+<ul>
+    <li>每个步骤中的错误不能够通知到相关责任人</li>
+    <li>image不在公共hub中，只有本机docker能够使用</li>
+    <li>docker仅仅作为JVM容器，而没有 tag 版本的功能</li>
+</ul>
+<p>当然，这些缺点都是可以技术实现的，但我这里只要做到基本需求就好。</p>
+<h2>实施</h2>
+<p>我们采用"Shell it"的方案进行实施。接下来我们创建如下的目录结构。</p>
+<pre><code>workdir
+   |  --- Dockerfile
+   |  --- app.jar
+   |  --- deploy.sh
+   |  --- logs&lt;dir&gt;
+   |  --- source_root&lt;dir&gt;
+</code></pre>
+<p>上述目录结构中的app.jar文件会在处理完之后删除或者移动。</p>
+<h3>获取源码</h3>
+<p>第一步当然是要获取源码了，我们以源码在Coding.net中为例子，在获取源码时，既然是能够自动获取，我们当然不希望还需要我们手动去输入用户密码的情况，所以我们需要使用ssh-key的方式。</p>
+<p>打开命令行终端输入 ssh-keygen -t rsa -C "your_email@example.com"( 你的邮箱)，连续点击
+    Enter 键即可。</p>
+<pre><code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# Creates a new ssh key, using the provided email as a label
+# Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]  // 推荐使用默认地址
+Enter passphrase (empty for no passphrase):   //此处点击 Enter 键即可
+</code></pre>
+<p>成功之后，你的key放置在"/Users/you/.ssh/id_rsa"下，将id_rsa.pub文件中的内容放到coding.net的部署公钥中即可。这样一来，使用git更新代码便畅通无阻。</p>
+<h3>比对更新</h3>
+<p>更新源码不是总是能够有新的代码出现，毕竟我们每60秒就更新一次，但是怎么判断是否有更新呢？这里的思路就是比对本地head的sha和远程最新head的sha值是否相同，如果不同，则肯定有更新。相关脚本如下：</p>
+<pre><code class="language-bash">l1=`git rev-parse HEAD`
+l2=`git ls-remote git@e.coding.net:/you/app.git HEAD | awk '{ print $1 }'`
+
+if [ $l1 = $l2 ];then
+    echo "no change"
+    exit 1
+else
+   # clean build package deploy
+fi
+</code></pre>
+<h3>定时检查</h3>
+<p>在/etc/crontab中加入如下内容：</p>
+<pre><code class="language-bash">*/1 *   * * *   root    /workdir/deploy.sh &gt;&gt; /workdir/logs/cron.log 2&gt;&amp;1
+</code></pre>
+<p>这里的意思是以root用户的角度来执行deploy.sh脚本，并将脚本的输出信息追加在cron.log文件中。<br>
+    值得注意的是为什么要用root用户呢？原因是docker需要用到root用户，当然也可以不用，但是又给我们找事儿了不是？</p>
+<h3>编译源码</h3>
+<p>我们假定我们的项目使用的是Gradle，当然如果你的是Maven，可以类推。</p>
+<pre><code class="language-bash">    echo "buiding..."
+    if ./gradlew clean build bootJar -x test;then
+        echo "build done"
+    else
+        exit 1
+    fi
+</code></pre>
+<p>注意命令中的 "-x test"表示我们skip了测试。</p>
+<h3>创建镜像</h3>
+<p>创建镜像就是标准的Docker命令了，</p>
+<pre><code class="language-bash">docker build -t group/app-name -f Dockerfile .
+</code></pre>
+<p>Dockerfile：</p>
+<pre><code class="language-dockerfile">FROM openjdk:8-jre-alpine
+
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone
+VOLUME /tmp
+COPY app-1.0.0.jar app.jar
+ENTRYPOINT ["java", "-Dspring.profiles.active=test","-jar", "/app.jar"]
+</code></pre>
+<p>简单说一下Dockerfile，使用openjdk:8-jre-alpine的原因是它够小，够用，够快。同时ENV和RUN解决了时区问题。</p>
+<h3>启动镜像</h3>
+<pre><code class="language-bash">docker run -d -p 8800:8800 -v /workdir/logs/app/:/logs --restart=always --name test-app group/app-name
+</code></pre>
+<p>好了基本上就结束了。野路子可以玩儿了。</p>
+<h2>附件</h2>
+<h3>完整的deploy.sh</h3>
+<pre><code class="language-bash">#!/bin/sh
+cd /workdir/source_dir
+
+l1=`git rev-parse HEAD`
+l2=`git ls-remote git@e.coding.net:/you/app.git HEAD | awk '{ print $1 }'`
+
+if [ $l1 = $l2 ];then
+    echo "no change"
+    exit 1
+else
+    echo "pulling source code"
+    if git pull;then
+        echo "source pulled."
+    else
+        exit 1
+    fi
+
+    echo "buiding..."
+    if ./gradlew clean build bootJar -x test;then
+        echo "build done"
+    else
+        exit 1
+    fi
+
+    echo "copy jar..."
+    cp ./build/libs/*.jar /workdir
+    echo "copy done"
+
+    cd /workdir
+    docker stop test-app
+    docker rm test-app
+    docker rmi group/app-name
+    if docker build -t group/app-name -f Dockerfile .;then
+        if docker run -d -p 8800:8800 -v /workdir/logs/:/logs --restart=always --name test-app group/app-name;then
+            rm app-1.0.0.jar
+            echo "It's done!"
+        else
+           echo "docker container run fail"
+           exit 1
+        fi
+    else
+        echo "docker image build fail"
+        exit 1
+    fi
+fi
+</code></pre>
