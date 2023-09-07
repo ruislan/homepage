@@ -28,5 +28,6 @@ docker run -it --rm --name hp -v /path/to/data:/app/db -e DATABASE_URL=file:/app
 
 ## Add Post
 
-* create a html file, save it in the dir '/content/posts'。
-* add an item in the lib/database.js => Post => data, e.g. { slug: 'test', title: 'test', summary: 'test', date: 'yyyy-MM-dd' }。
+* create a html file, say 'test.html', save it to the dir '/content/posts'。
+* mkdir -r '/public/images/posts/test', add a hero image, say 'hero.jpg', to the dir '/public/images/posts/test'
+* add an item in the lib/database.js => Post => data, e.g. { slug: 'test', title: 'test', summary: 'test', date: 'yyyy-MM-dd', hero: '/images/posts/test/hero.jpg', }。

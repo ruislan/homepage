@@ -8,13 +8,23 @@ export const metadata = {
 };
 
 export default async function PostsPage() {
-    const posts = await database.Post.getPosts();
+    const groups = await database.Post.getPostsGroupByYear();
     return (
         <div>
             <h1 className='font-bold text-2xl mb-8'>我的博客</h1>
 
             <div className='flex flex-col gap-4'>
-                {posts.map((post) => <PostCard key={post.slug} post={post} />)}
+                {groups.map(({ year, posts }) => (
+                    <div key={year} className='flex flex-col gap-4'>
+                        <div className='flex items-center gap-2'>
+                            <h2 className='font-bold text-xl text-neutral-50'>{year}</h2>
+                            <span className='mt-1 grow border-b border-neutral-600/50' />
+                        </div>
+                        <div className='flex flex-col gap-4'>
+                            {posts.map((post) => <PostCard key={post.slug} post={post} />)}
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

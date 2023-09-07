@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Terminal } from './components/icons';
 
 const menus = [
   { path: '/', name: '首页' },
@@ -11,6 +12,7 @@ const menus = [
   { path: '/posts', name: '博客' },
   { path: '/gears', name: '装备' },
   { path: '/privacy', name: '声明' },
+  { path: 'https://github.com/ruislan/homepage', name: '源码' },
 ];
 
 export default function Header() {
@@ -22,9 +24,7 @@ export default function Header() {
     <header>
       <nav className='flex items-center py-8'>
         <a href='/' className='font-bold text-lg mr-6 flex items-center gap-1'>
-          <span className='w-6 h-6'>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM12 15V17H18V15H12ZM8.41421 12L5.58579 14.8284L7 16.2426L11.2426 12L7 7.75736L5.58579 9.17157L8.41421 12Z' fill='rgba(255,255,255,1)'></path></svg>
-          </span>
+          <span className='w-6 h-6'><Terminal /></span>
           <span>Rui's Studio</span>
         </a>
         <div className='flex flex-wrap items-center gap-4'>
@@ -36,7 +36,6 @@ export default function Header() {
               )}>{name}</Link>
           })}
         </div>
-        {/* add source link here */}
       </nav>
     </header>
   );

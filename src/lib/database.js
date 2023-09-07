@@ -16,9 +16,9 @@ const database = {
             { slug: 'work-method-human', title: '我的工作方法论 - 关于人', summary: '在工作中，免不了和人打交道，所以关于人，应该有一些基本的原则。', date: '2019-05-13', hero: '/images/posts/work-method-human/hero.jpg' },
             { slug: 'work-method-value', title: '我的工作方法论 - 核心价值观', summary: '作为领导需要什么样的员工，作为员工，需要进入什么样的企业。', date: '2019-05-06', hero: '/images/posts/work-method-value/hero.jpg' },
             { slug: 'cicd-jvm', title: '用野路子实现JVM项目CI/CD', summary: '用野路子实现JVM项目CI/CD', date: '2019-04-26', hero: '/images/posts/cicd-jvm/hero.jpg' },
+            { slug: 'linux-cmd', title: '好玩的Linux指令', summary: '好玩的Linux指令', date: '2019-04-26', hero: '' },
             { slug: 'certbot', title: 'Let\'s Encrypt - certbot', summary: 'certbot非常的简单和容易上手，不需要10分钟，你只需要不到5分钟，整个操作就完成了。简单实用即真理。', date: '2018-11-05', hero: '/images/posts/certbot/hero.jpg' },
             { slug: 'develop-smart-contract', title: '智能合约开发手记', summary: '最近用EVM做了不少智能合约的项目，有lotto，vote，dao等等，说说感受吧。', date: '2018-09-12', hero: '/images/posts/develop-smart-contract/hero.jpg' },
-            { slug: 'linux-cmd', title: '好玩的Linux指令', summary: '好玩的Linux指令', date: '2019-04-26', hero: '' },
         ],
         async getPosts() {
             const posts = this.data;
@@ -27,6 +27,17 @@ const database = {
                 post.views = viewCounts.find(v => v.slug === post.slug)?.total || 0;
             }
             return posts;
+        },
+        async getPostsGroupByYear() {
+            const posts = await this.getPosts();
+            const groups = {};
+            for (const post of posts) {
+                const year = post.date.split('-')[0];
+                if (!groups[year]) groups[year] = [];
+                groups[year].push(post);
+            }
+            const sortedGroups = Object.keys(groups).sort((a, b) => b.localeCompare(a)).map(year => ({ year, posts: groups[year] }));
+            return sortedGroups;
         },
         async getTopViewPosts(limit = 3) {
             const posts = this.data;
@@ -96,22 +107,23 @@ const database = {
     },
     Skill: {
         data: [
-            { title: 'Java' },
-            { title: 'Kotlin' },
-            { title: 'Spring' },
-            { title: 'Rust' },
-            { title: 'JavaScript' },
-            { title: 'Git' },
-            { title: 'NodeJS' },
-            { title: 'Fastify' },
-            { title: 'Prisma' },
-            { title: 'React' },
-            { title: 'Vite' },
-            { title: 'MySQL' },
-            { title: 'MongoDB' },
-            { title: 'Redis' },
-            { title: 'RabbitMQ' },
-            { title: 'Docker' },
+            { title: 'Java', quality: 5, },
+            { title: 'Kotlin', quality: 5, color: '#7F52FF' },
+            { title: 'Spring', quality: 4, color: '#6DB33F' },
+            { title: 'Rust', quality: 3, },
+            { title: 'JavaScript', quality: 4, color: '#F7DF1E' },
+            { title: 'NodeJS', quality: 4, color: '#339933' },
+            { title: 'Fastify', quality: 4, },
+            { title: 'Prisma', quality: 4, },
+            { title: 'React', quality: 3, color: '#61DAFB' },
+            { title: 'Vite', quality: 3, color: '#646CFF' },
+            { title: 'MySQL', quality: 4, color: '#4479A1' },
+            { title: 'SQLite', quality: 4, color: '#2496ED' },
+            { title: 'MongoDB', quality: 4, color: '#47A248' },
+            { title: 'Redis', quality: 2, color: '#DC382D' },
+            { title: 'RabbitMQ', quality: 1, color: '#FF6600' },
+            { title: 'Docker', quality: 4, color: '#2496ED' },
+            { title: 'Git', quality: 4, color: '#F05032' },
         ],
         async getSkills() {
             return this.data;

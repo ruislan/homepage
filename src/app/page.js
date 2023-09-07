@@ -5,6 +5,7 @@ import WorkCard from './components/work-card';
 import Paragraph from './components/paragraph';
 import ToolTip from './components/tooltip';
 import SkillCard from './components/skill-card';
+import { ExternalLink } from './components/icons';
 
 // refresh every 1 hour
 export const revalidate = 3600;
@@ -16,7 +17,7 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className='font-bold text-2xl mb-8'>Hi，大家好，我是 Rui  👏</h1>
+      <h1 className='font-bold text-2xl mb-8'>Hi，大家好，我是 Rui 👏🏼</h1>
       <Paragraph>
         一个 80 后，充满激情和创造力的全栈开发者，乐观主义者，向往一切美好的事物。喜欢在闲暇之余实现各种有意思的项目。
       </Paragraph>
@@ -28,10 +29,8 @@ export default async function Page() {
         </Paragraph>
         <div className='flex flex-col my-6 space-y-4 w-full'>
           {posts.map(post => <PostCard key={post.slug} post={post} endEnhancer={
-            <div className='text-neutral-300 fill-neutral-300 w-4 h-4'>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z' fill='inherit'></path></svg>
-            </div>}
-          />)}
+            <span className='text-neutral-300 fill-neutral-300 w-4 h-4'><ExternalLink /></span>
+          } />)}
         </div>
       </section>
 
@@ -61,7 +60,11 @@ export default async function Page() {
           <ToolTip content={'ETH:0x73028936Fd29467E229A585611c37bB9042B10EB'}>
             <span className='font-bold underline underline-offset-4 cursor-pointer'>打赏</span>
           </ToolTip>
-          ，或者联系并雇佣我。
+          ，或者
+          <ToolTip content={'Mail:z17520@126.com'}>
+            <span className='font-bold underline underline-offset-4 cursor-pointer'>联系</span>
+          </ToolTip>
+          并雇佣我。
         </Paragraph>
       </section>
     </div>
