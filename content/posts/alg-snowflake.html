@@ -1,0 +1,237 @@
+<h4>概述</h4>
+<p>snowflake是twitter为了搬移数据库从Mysql到cassandra生成可排序主键而创造的极其简单高效的分布式主键生成算法。</p>
+<h4>研究价值</h4>
+<p>研究snowflake的初衷是我们想创造一个服务域内各自独立运行也能生成唯一ID的生成器，好处就是我们可以不再需要将有业务意义的ID通过数据库来提现，同时又能很好的兼容数据库的排序功能。</p>
+<p>我们知道如果使用数据库的自增ID，有一个严重的问题，就是会暴露业务，例如我们可以很轻易的就知道当日的交易数量或者交易频率，通过/transaction/12，/transaction/103等方式。那么UUID呢，UUID本身是一个很好的解决方案，他会生成几十年内都宇宙唯一的ID，除非来自平行宇宙的另一个UUID才有会产生碰撞，或者几十年后会有极其微弱的概率会产生碰撞，但是UUID是字符串形式的，这对于我们采用了mysql这样的数据库来说，用UUID就是一种不友好无法连续排序的主键，由于mysql的存储数据是根据主键来索引的，所以在有一定数据量的时候（通常是在20万左右），mysql就会因为移动太多的数据而导致插入太慢，当达到更大的数据量时（大约是200万-2000万左右），就已经让人无法忍受了。具体的性能可以自行谷歌百度必应。
+</p>
+<h4>算法描述</h4>
+<p>D=毫秒级时间41位+机器ID的10位+毫秒内序列12位，这就是算法的核心公式，我们把位数切开来看：</p>
+<blockquote>
+    <p>0---0000000000 0000000000 0000000000 0000000000 0 --- 00000 ---00000 ---0000000000 00</p>
+</blockquote>
+<p>在上面的字符串中，第一位为未使用（实际上也可作为long的符号位），接下来的41位为毫秒级时间，然后5位datacenter标识位，5位机器ID（并不算标识符，实际是为线程标识），然后12位该毫秒内的当前毫秒内的计数，加起来刚好64位，为一个Long型。<br>
+    这样的好处是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞（由datacenter和机器ID作区分），并且效率较高，经测试，snowflake每秒能够产生26万ID左右，完全满足需要。</p>
+<h4>可替代方案</h4>
+<p>分布式环境下的唯一主键生成策略我们可以归纳为几种方式：</p>
+<ul>
+    <li>使用UUID/GUID</li>
+    <li>使用时间戳加上随机码的方式，这种方式可以完全的放在client端，每个生成器单独使用，是一种接近UUID的方式。但是这个方式有一定的几率会出现碰撞。</li>
+    <li>The most significant 32 bits: Timestamp, the generation time of the ID.</li>
+    <li>The least significant 32 bits: 32-bits of randomness, generated anew for each ID.</li>
+    <li>使用改进的更接近UUID的方式，除了时间戳的，再加上机器的标识，以及该机器的自增码。这样每个生成器也可以单独使用。</li>
+    <li>The most significant 40 or so bits: A timestamp; the generation time of the ID.</li>
+    <li>The next 14 or so bits: A per-generator counter, which each generator increments by one for each new ID
+        generated. This ensures that IDs generated at the same moment (same timestamps) do not overlap.</li>
+    <li>The last 10 or so bits: A unique value for each generator. Using this, we don't need to do any
+        synchronization between generators (which is extremely hard), as all generators produce non-overlapping IDs
+        because of this value.</li>
+    <li>使用Snowflake服务。这个服务可以在github的twitter/snowflake下载。</li>
+    <li>Networked service, i.e. you make a network call to get a unique ID;</li>
+    <li>which produces 64 bit unique IDs that are ordered by generation time;</li>
+    <li>and the service is highly scalable and (potentially) highly available; each instance can generate many
+        thousand IDs per second, and you can run multiple instances on your LAN/WAN;</li>
+    <li>written in Scala, runs on the JVM.</li>
+</ul>
+<h4>关于测试</h4>
+<p>测试的时候，需要注意的是，如果你需要一个类似于Set的全局容器进行测试，一定要保证这个全局容器是线程安全的（Thread Safe），这样才能保证同时插入这个容器的时候不会出现问题。</p>
+<h4>Scale代码</h4>
+<p>Twitter的原版实现</p>
+<pre><code lang="Scala"><span>/** Copyright 2010-2012 Twitter, Inc.*/</span>
+package com.twitter.service.snowflake
+
+import com.twitter.ostrich.stats.Stats
+import com.twitter.service.snowflake.gen._
+import java.util.Random
+import com.twitter.logging.Logger
+
+<span>/**
+ * An object that generates IDs.
+ * This is broken into a separate class in case
+ * we ever want to support multiple worker threads
+ * per process
+ */</span>
+<span>class</span> IdWorker(val workerId: Long, val datacenterId: Long, private val reporter: Reporter, var sequence: Long = <span>0</span>L)
+extends Snowflake.Iface {
+  private[<span>this</span>] def genCounter(agent: String) = {
+    Stats.incr(<span>"ids_generated"</span>)
+    Stats.incr(<span>"ids_generated_%s"</span>.format(agent))
+  }
+  private[<span>this</span>] val exceptionCounter = Stats.getCounter(<span>"exceptions"</span>)
+  private[<span>this</span>] val log = Logger.get
+  private[<span>this</span>] val rand = new Random
+
+  val twepoch = <span>1288834974657</span>L
+
+  private[<span>this</span>] val workerIdBits = <span>5</span>L
+  private[<span>this</span>] val datacenterIdBits = <span>5</span>L
+  private[<span>this</span>] val maxWorkerId = <span>-1</span>L ^ (<span>-1</span>L &lt;&lt; workerIdBits)
+  private[<span>this</span>] val maxDatacenterId = <span>-1</span>L ^ (<span>-1</span>L &lt;&lt; datacenterIdBits)
+  private[<span>this</span>] val sequenceBits = <span>12</span>L
+
+  private[<span>this</span>] val workerIdShift = sequenceBits
+  private[<span>this</span>] val datacenterIdShift = sequenceBits + workerIdBits
+  private[<span>this</span>] val timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits
+  private[<span>this</span>] val sequenceMask = <span>-1</span>L ^ (<span>-1</span>L &lt;&lt; sequenceBits)
+
+  private[<span>this</span>] var lastTimestamp = <span>-1</span>L
+
+  <span>// sanity check for workerId</span>
+  <span>if</span> (workerId &gt; maxWorkerId || workerId &lt; <span>0</span>) {
+    exceptionCounter.incr(<span>1</span>)
+    throw new IllegalArgumentException(<span>"worker Id can't be greater than %d or less than 0"</span>.format(maxWorkerId))
+  }
+
+  <span>if</span> (datacenterId &gt; maxDatacenterId || datacenterId &lt; <span>0</span>) {
+    exceptionCounter.incr(<span>1</span>)
+    throw new IllegalArgumentException(<span>"datacenter Id can't be greater than %d or less than 0"</span>.format(maxDatacenterId))
+  }
+
+  log.info(<span>"worker starting. timestamp left shift %d, datacenter id bits %d, worker id bits %d, sequence bits %d, workerid %d"</span>,
+    timestampLeftShift, datacenterIdBits, workerIdBits, sequenceBits, workerId)
+
+  def get_id(useragent: String): Long = {
+    <span>if</span> (!validUseragent(useragent)) {
+      exceptionCounter.incr(<span>1</span>)
+      throw new InvalidUserAgentError
+    }
+
+    val <span>id</span> = nextId()
+    genCounter(useragent)
+
+    reporter.report(new AuditLogEntry(<span>id</span>, useragent, rand.nextLong))
+    <span>id</span>
+  }
+
+  def get_worker_id(): Long = workerId
+  def get_datacenter_id(): Long = datacenterId
+  def get_timestamp() = System.currentTimeMillis
+
+  protected[snowflake] def nextId(): Long = synchronized {
+    var timestamp = timeGen()
+
+    <span>if</span> (timestamp &lt; lastTimestamp) {
+      exceptionCounter.incr(<span>1</span>)
+      log.error(<span>"clock is moving backwards.  Rejecting requests until %d."</span>, lastTimestamp);
+      throw new InvalidSystemClock(<span>"Clock moved backwards.  Refusing to generate id for %d milliseconds"</span>.format(
+        lastTimestamp - timestamp))
+    }
+
+    <span>if</span> (lastTimestamp == timestamp) {
+      sequence = (sequence + <span>1</span>) &amp; sequenceMask
+      <span>if</span> (sequence == <span>0</span>) {
+        timestamp = tilNextMillis(lastTimestamp)
+      }
+    } <span>else</span> {
+      sequence = <span>0</span>
+    }
+
+    lastTimestamp = timestamp
+    ((timestamp - twepoch) &lt;&lt; timestampLeftShift) |
+      (datacenterId &lt;&lt; datacenterIdShift) |
+      (workerId &lt;&lt; workerIdShift) |
+      sequence
+  }
+
+  protected def tilNextMillis(lastTimestamp: Long): Long = {
+    var timestamp = timeGen()
+    <span>while</span> (timestamp &lt;= lastTimestamp) {
+      timestamp = timeGen()
+    }
+    timestamp
+  }
+
+  protected def timeGen(): Long = System.currentTimeMillis()
+
+  val AgentParser = <span>""</span><span>"([a-zA-Z][a-zA-Z\-0-9]*)"</span><span>""</span>.r
+
+  def validUseragent(useragent: String): Boolean = useragent match {
+    <span>case</span> AgentParser(_) =&gt; <span>true</span>
+    <span>case</span> _ =&gt; <span>false</span>
+  }
+}
+</code></pre>
+<h4>Java源码</h4>
+<p>由于项目用的是Java，这里我把scale改为了Java，去除了datacenter编号。</p>
+<pre><code lang="Java"><span>package</span> com.omoney.core.common.generator.flake;
+
+<span>import</span> org.slf4j.Logger;
+<span>import</span> org.slf4j.LoggerFactory;
+
+<span>/**
+ * Id 生成器
+ * &lt;p&gt;
+ * ID发生器的主要目的是为了每个不同名字的发生器都能生成全网唯一的ID
+ * &lt;p&gt;
+ * id is composed of:
+ * time - 41 bits (millisecond precision w/ a custom epoch gives us 69 years)
+ * configured machine id - 10 bits - gives us up to 1024 machines
+ * sequence number - 12 bits - rolls over every 4096 per machine (with protection to avoid rollover in the same ms)
+ */</span>
+<span>public</span> <span><span>class</span> <span>IdWorker</span> </span>{
+    <span>private</span> Logger logger = LoggerFactory.getLogger(IdWorker.class);
+    <span>private</span> <span>final</span> <span>static</span> <span>long</span> epoch = <span>1429873810601L</span>;
+    <span>private</span> <span>final</span> <span>long</span> workerIdBits = <span>10L</span>; <span>// worker id 位数</span>
+    <span>private</span> <span>final</span> <span>long</span> sequenceBits = <span>12L</span>; <span>//  本worker的计数器位数</span>
+
+    <span>private</span> <span>final</span> <span>long</span> maxWorkerId = ~(-<span>1L</span> &lt;&lt; workerIdBits);
+    <span>private</span> <span>final</span> <span>long</span> workerIdShift = sequenceBits;
+    <span>private</span> <span>final</span> <span>long</span> timestampShift = sequenceBits + workerIdBits;
+    <span>private</span> <span>final</span> <span>long</span> sequenceStep = ~(-<span>1L</span> &lt;&lt; sequenceBits);  <span>//同一毫秒内每次计数增长4096</span>
+
+    <span>private</span> <span>long</span> workerId = <span>0L</span>;
+    <span>private</span> <span>long</span> sequence = <span>0L</span>;
+    <span>private</span> <span>long</span> lastTimestamp = -<span>1L</span>;
+
+    <span>/**
+     * <span>@param</span> workerId range [0 - 1023]
+     */</span>
+    <span><span>public</span> <span>IdWorker</span><span>(<span>final</span> <span>long</span> workerId)</span> </span>{
+        <span>if</span> (workerId &gt; <span>this</span>.maxWorkerId || workerId &lt; <span>0</span>) {
+            <span>throw</span> <span>new</span> IllegalArgumentException(String.format(
+                    <span>"worker Id can't be greater than %d or less than 0"</span>,
+                    <span>this</span>.maxWorkerId));
+        }
+        <span>this</span>.workerId = workerId;
+    }
+
+
+    <span><span>protected</span> <span>synchronized</span> <span>long</span> <span>nextId</span><span>()</span> </span>{
+        <span>// 获取当前时间</span>
+        <span>long</span> timestamp = System.currentTimeMillis();
+
+        <span>// 如果当前时间比上次的时间要小则说明时间计数出了问题</span>
+        <span>if</span> (timestamp &lt; lastTimestamp) {
+            logger.error(<span>"clock is moving backwards.  Rejecting requests until %d."</span>, lastTimestamp);
+            <span>throw</span> <span>new</span> RuntimeException(String.format(<span>"Clock moved backwards.  Refusing to generate id for %d milliseconds"</span>,
+                    lastTimestamp - timestamp));
+        }
+
+        <span>// 同一个毫秒级的时间戳上，那么就需要进行计数</span>
+        <span>if</span> (lastTimestamp == timestamp) {
+            sequence = (sequence + <span>1</span>) &amp; sequenceStep;
+            <span>if</span> (sequence == <span>0</span>) {
+                <span>// 等待下一个毫秒的到来</span>
+                timestamp = waitlNextMillis(lastTimestamp);
+            }
+        } <span>else</span> {
+            sequence = <span>0</span>;
+        }
+
+        lastTimestamp = timestamp;
+        <span>return</span> ((timestamp - epoch) &lt;&lt; timestampShift) |
+                (workerId &lt;&lt; workerIdShift) | sequence;
+    }
+
+    <span><span>protected</span> <span>long</span> <span>waitlNextMillis</span><span>(<span>long</span> lastTimestamp)</span> </span>{
+        <span>long</span> timestamp = System.currentTimeMillis();
+        <span>while</span> (timestamp &lt;= lastTimestamp) {
+            timestamp = System.currentTimeMillis();
+        }
+        <span>return</span> timestamp;
+    }
+
+    <span><span>public</span> <span>long</span> <span>getWorkerId</span><span>()</span> </span>{
+        <span>return</span> workerId;
+    }
+}
+</code></pre>

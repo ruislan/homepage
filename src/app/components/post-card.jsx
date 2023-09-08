@@ -2,7 +2,7 @@ import { Calendar, Eye } from "./icons";
 
 export default function PostCard({ post, endEnhancer, }) {
     return (
-        <a href={`/posts/${post.slug}`} target='_blank'
+        <a href={`/posts/${post.slug}`}
             className='border border-neutral-700 bg-neutral-800 rounded flex items-center justify-between px-3 py-4 hover:border-neutral-600 shadow transition-all duration-300'>
             <div className='flex flex-col gap-1'>
                 <span className='font-bold text-neutral-100'>

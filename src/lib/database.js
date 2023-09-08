@@ -19,6 +19,10 @@ const database = {
             { slug: 'linux-cmd', title: '好玩的Linux指令', summary: '好玩的Linux指令', date: '2019-04-26', hero: '' },
             { slug: 'certbot', title: 'Let\'s Encrypt - certbot', summary: 'certbot非常的简单和容易上手，不需要10分钟，你只需要不到5分钟，整个操作就完成了。简单实用即真理。', date: '2018-11-05', hero: '/images/posts/certbot/hero.jpg' },
             { slug: 'develop-smart-contract', title: '智能合约开发手记', summary: '最近用EVM做了不少智能合约的项目，有lotto，vote，dao等等，说说感受吧。', date: '2018-09-12', hero: '/images/posts/develop-smart-contract/hero.jpg' },
+            { slug: 'thinkers-and-doers', title: '思想者 与 实干者', summary: '这个世界上有思想者也有实干者，但是大多数思想者都是空想者。', date: '2018-01-23', hero: '/images/posts/thinkers-and-doers/hero.jpg' },
+            { slug: 'share-party', title: '分享会，Enjoy', summary: '没想到，10几年了，还能上讲台跟大家分享技术，这一次，是区块链，是以太坊，是智能合约', date: '2018-01-20', hero: '/images/posts/share-party/hero.jpg' },
+            { slug: 'alg-luhn', title: '信用卡之LUHN算法', summary: 'Luhn 算法或是Luhn 公式，也被称作“模10算法”。它是一种简单的校验公式，一般会被用于身份证号码，IMEI号码，美国供应商识别号码，或是加拿大的社会保险号码的验证。', date: '2016-01-30', hero: '/images/posts/alg-luhn/hero.jpg' },
+            { slug: 'alg-snowflake', title: 'Snowflake算法', summary: 'snowflake是twitter为了搬移数据库从Mysql到cassandra生成可排序主键而创造的极其简单高效的分布式主键生成算法。', date: '2014-01-30', hero: '/images/posts/alg-snowflake/hero.jpg' },
         ],
         async getPosts() {
             const posts = this.data;

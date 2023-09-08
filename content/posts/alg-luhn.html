@@ -1,0 +1,73 @@
+<h4>算法简介</h4>
+<p>LUHN算法，主要用来计算信用卡等证件号码的合法性。</p>
+<ul>
+    <li>从卡号最后一位数字开始</li>
+    <li>如果是偶数位，则乘以2,如果乘以2的结果是两位数，则减去9，并保留结果。</li>
+    <li>若果是奇数位，则直接保留。</li>
+    <li>将所有的数字相加得到总和。</li>
+    <li>如果信用卡号码是合法的，总和可以被10整除。</li>
+</ul>
+<p>Luhn 算法或是Luhn 公式，也被称作“模10算法”。它是一种简单的校验公式，一般会被用于身份证号码，IMEI号码，美国供应商识别号码，或是加拿大的社会保险号码的验证。该算法是由IBM的科学家Hans Peter
+    Luhn所创造，于1954年1月6日提出该专利的申请，并于1960年8月23日被授予，在美国的专利号为2950048。
+    该算法一直都被大家所公用，并且时至今日应用也很广泛。它被指定在ISO/IEC7812-1。它的目的不是成为一种加密安全的哈希函数；它的目的是防止意外出现的错误，而不是恶意攻击。很多信用卡和众多的政府身份识别号码都使用该算法从一系列的随机数字中提取有效的数字。
+</p>
+<h4>优点和缺点</h4>
+<p>Luhn算法会检测到任何单码的错误以及几乎所有的相邻数字换位的错误。但是它不会检测两个数字序列09转90的错误（反之亦然）。它会检测到十分之七的相同双位数错误（不会检测到22和55的互换，33和66的互换，44和77的互换）。其他更复杂的检查数字算法，如费尔赫夫算法，可以检测出更多的转录错误。模N的Luhn算法是Luhn算法的一个扩展，支持非数字字符串。因为该算法采取了从右向左的方式，而且零位会影响计算的结果。只有当零位造成了数位的移动或是用零来填充一串数字的开头时才不会影响计算结果的生成。因此不论在将1234用零填充为0001234之前或是之后，使用Luhn算法得到的结果都是一样的。
+</p>
+<p>该算法在美国专利上是为了给手持或是机械设备计算校验码。所以它必须尽可能的简单。</p>
+<h4>算法适用性</h4>
+<p>Almost.</p>
+<p>China UnionPay and one kind of Diners Club card (enRoute) do not use Luhn validation. (The above accepted answer
+    is wrong about Diners Club.)</p>
+<p>Nearly everyone else does.</p>
+<p>Citing Wikipedia's 'Bank card' page:</p>
+<p>Don't validate at all:</p>
+<ul>
+    <li>Diners Club enRoute</li>
+    <li>China UnionPay</li>
+</ul>
+<p>Validate with Luhn 2:</p>
+<ul>
+    <li>American Express</li>
+    <li>Bankcard</li>
+    <li>Diners Club Carte Blanche</li>
+    <li>Diners Club International</li>
+    <li>Diners Club United States &amp; Canada</li>
+    <li>Discover Card</li>
+    <li>InstaPayment</li>
+    <li>JCB</li>
+    <li>Laser</li>
+    <li>Maestro</li>
+    <li>Dankort</li>
+    <li>MasterCard</li>
+    <li>Solo</li>
+    <li>Switch</li>
+    <li>Visa</li>
+    <li>Visa Electron</li>
+</ul>
+<h4>Java范例</h4>
+<p>我用Java简单写了一个范例，有兴趣的朋友可以用自己的卡号来试试，适用的范围见上一节。</p>
+<pre><code>
+    <span><span>public</span> boolean <span>isLuhnValid</span><span>(String number)</span> </span>{
+        List&lt;Integer&gt; numbers = number.chars()
+                .mapToObj(num -&gt; ((<span>char</span>) num))
+                .filter(Character::isDigit)
+                .<span>map</span>(String::valueOf)
+                .mapToInt(Integer::<span>new</span>).boxed()
+                .collect(Collectors.toList());
+        Collections.reverse(numbers);
+
+        <span>int</span> sum = IntStream.range(<span>0</span>, numbers.size())
+                .parallel()
+                .<spanclass="hljs-built_in">map</span>(i -&gt; {
+                    <span>if</span> (i % <span>2</span> != <span>0</span>) {
+                        <span>int</span> num = numbers.get(i) * <span>2</span>;
+                        <span>if</span> (num &gt; <span>9</span>) num -= <span>9</span>;
+                        <span>return</span> num;
+                    } <span>else</span> <span>return</span> numbers.get(i);
+                }).sum();
+
+        <span>return</span> sum % <span>10</span> == <span>0</span>;
+    }
+</code></pre>
+<p>例如4242 4242 4242 4242，最后结果为80，可以被整除，合法。</p>
