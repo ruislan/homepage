@@ -1,5 +1,3 @@
-'use-client';
-
 import clsx from 'clsx';
 import { Git, JavaScript, Kotlin, MongoDB, NextJS, React, NodeJS, Rust, Vite, SQLite, Spring, Java, Redis, Prisma, Fastify, Docker, MySQL, RabbitMQ } from './icons';
 
@@ -43,9 +41,10 @@ function getQualityColor(quality) {
 
 export default function SkillCard({ skill }) {
     return (
-        <div className={clsx('cursor-pointer border border-neutral-700 bg-neutral-800',
+        <div className={clsx('relative cursor-pointer border border-neutral-700 bg-neutral-800',
             'rounded-lg flex items-center p-2 py-1 gap-1 hover:border-neutral-600',
-            `hover:animate-wave hover:backdrop-blur-sm ${getQualityColor(skill.quality)}`)}>
+            `hover:animate-wave hover:backdrop-blur-sm ${getQualityColor(skill.quality)}`)}
+        >
             <span style={{ color: skill.color }}><Icon title={skill.title} /></span>
             <span className='text-neutral-300'>{skill.title}</span>
         </div>

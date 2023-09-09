@@ -18,14 +18,16 @@ export default async function Page() {
   return (
     <div>
       <h1 className='font-bold text-2xl mb-8'>Hi，大家好，我是 Rui 👏🏼</h1>
-      <Paragraph>
-        一个 80 后，充满激情和创造力的全栈开发者，乐观主义者，向往一切美好的事物。喜欢在闲暇之余实现各种有意思的项目。
-      </Paragraph>
+      <section>
+        <Paragraph>
+          一个 80 后，充满激情和创造力的全栈开发者，乐观主义者，向往一切美好的事物。
+        </Paragraph>
+      </section>
 
       <section>
         <Paragraph>
           在我从写下第一行商业代码开始的 19 年时间里（从 2004 年开始），就没有停止过写点东西并且分享出来，
-          这些东西包含了我学习获得知识，研发遇到的坑，以及一些突发奇想和各种感悟，我尽量想简单地写下来，在此时此刻此地分享。
+          这些东西包含了我学习获得知识、研发遇到的坑、以及一些突发奇想和各种感悟，我想尽量简单地写下来，在这里分享。
         </Paragraph>
         <div className='flex flex-col my-6 space-y-4 w-full'>
           {posts.map(post => <PostCard key={post.slug} post={post} endEnhancer={
