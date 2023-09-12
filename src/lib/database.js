@@ -80,12 +80,14 @@ const database = {
                 summary: '一个时尚的游戏社区平台',
                 cover: '/images/works/ktap/cover.png',
                 github: 'https://github.com/ruislan/ktap',
+                demo: 'https://ktap.ruislan.com',
             },
             {
                 slug: 'simple-crm', title: 'Simple CRM', date: '2022-09',
                 summary: 'Simple CRM 天然契合小微企业或者小团队及个人使用。以客户为中心，以人为本，促成交，存数据，挖价值，创业绩。',
                 cover: '/images/works/simple-crm/dashboard.png',
                 github: 'https://github.com/ruislan/simple-crm',
+                demo: 'https://sc.ruislan.com',
             },
             {
                 slug: 'leetcode-rust', title: 'LeetCode in Rust', date: '2021-09',
