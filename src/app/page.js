@@ -17,7 +17,7 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className='font-bold text-2xl mb-8'>Hi，大家好，我是 Rui 👏🏼</h1>
+      <h1 className='font-bold text-2xl mb-8'>Hi，大家好，我是 Rui 🤟🏼</h1>
       <section>
         <Paragraph>
           一个 80 后，充满激情和创造力的全栈开发者，乐观主义者，向往一切美好的事物。
@@ -39,7 +39,7 @@ export default async function Page() {
       <section>
         <Paragraph>
           最近 2、3 年时间，开始利用一些闲暇时间做一些东西，也算是边学习边练手。
-          这些东西包括一些语言的学习，以及对一些有意思的项目进行模仿，例如 Steam Community 。
+          这些东西包括一些语言的学习，一些想法的实现以及对一些有意思项目的模仿，例如 Steam 社区。
         </Paragraph>
         <div className='grid grid-cols-2 my-6 gap-4 w-full'>
           {works.map(work => <WorkCard key={work.slug} work={work} />)}
@@ -49,7 +49,8 @@ export default async function Page() {
       <section>
         <Paragraph>
           入行初期最喜欢的是 Java ，迷恋了 10 多年，从 JDK1.2 走到了现在，后来被 Kotlin 的语法糖和高效迷得神魂颠倒，再后来痴迷于 Rust 的设计思想，
-          并且为了学习它疯狂做了几百道 LeetCode 题目，最近一段时间在学习和使用这些技术：NodeJS，Fastify，Prisma，React，Vite，NextJS。
+          并且为了学习它疯狂做了几百道 LeetCode 题目，最近一段时间在关注、学习和使用这些技术：NodeJS，Fastify，Prisma，React，Vite，NextJS。以及，
+          有了虚拟线程的非常棒的 JDK 21。
         </Paragraph>
         <div className='flex flex-wrap my-6 gap-2 w-full'>
           {skills.map(skill => <SkillCard key={skill.title} skill={skill} />)}
@@ -58,15 +59,15 @@ export default async function Page() {
 
       <section>
         <Paragraph>
-          最后，如果你觉得我的分享还不错，对你有帮助，你也可以给我
+          最后，如果你觉得我的分享还不错，有些帮助，欢迎给我
           <ToolTip content={'ETH:0x73028936Fd29467E229A585611c37bB9042B10EB'}>
             <span className='font-bold underline underline-offset-4 cursor-pointer'>打赏</span>
           </ToolTip>
-          ，或者
+          、
           <ToolTip content={'Mail:z17520@126.com'}>
             <span className='font-bold underline underline-offset-4 cursor-pointer'>联系</span>
           </ToolTip>
-          并雇佣我。
+          我、或者雇佣我。
         </Paragraph>
       </section>
     </div>

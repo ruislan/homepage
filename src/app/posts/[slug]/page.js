@@ -1,5 +1,5 @@
 import { revalidatePath } from 'next/cache';
-
+import ReactMarkdown from 'react-markdown';
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
 
@@ -8,11 +8,11 @@ export default async function PostPage({ params }) {
     if (!post) return 'Not Found';
     await database.Post.incrementViews(params.slug);
     revalidatePath('/posts'); // refresh /posts cache
-
     return (
         <div className='flex flex-col box-border'>
             <h1 className='font-bold text-2xl'>{post.title}</h1>
-            <div className="flex justify-between items-center mt-2 mb-2 text-sm">
+            <h3 className='mt-4 text-default italic text-gray-300'>{post.summary}</h3>
+            <div className="flex justify-between items-center mt-4 text-sm">
                 <p className="text-sm text-neutral-400">
                     {post.date}
                 </p>
@@ -23,7 +23,7 @@ export default async function PostPage({ params }) {
             <div className='my-6'>
                 <img className='w-full h-auto rounded-lg object-cover object-center aspect-[2/1]' src={post.hero} />
             </div>
-            <Paragraph dangerouslySetInnerHTML={{ __html: post.content }} />
+            {post.type === 'md' ? <Paragraph><ReactMarkdown>{post.content}</ReactMarkdown></Paragraph> : <Paragraph dangerouslySetInnerHTML={{ __html: post.content }} />}
         </div>
     );
 }

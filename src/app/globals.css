@@ -8,6 +8,7 @@
 }
 
 body {
-  color     : rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color      : rgb(var(--foreground-rgb));
+  background : rgb(var(--background-rgb));
+  font-family: 'calluna-sans', Inter, sans-serif;
 }

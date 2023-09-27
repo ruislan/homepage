@@ -1,11 +1,25 @@
 import prisma from './prisma';
 import fs from 'fs/promises';
 
+const readContent = async ({ slug, isPost = true, isMarkdown = false }) => {
+    let filename = isPost ? `./content/posts/${slug}` : `./content/works/${slug}`;
+    filename = isMarkdown ? `${filename}.md` : `${filename}.html`;
+    let content = null;
+    try {
+        content = await fs.readFile(filename, { encoding: 'utf-8' });
+    } catch (err) {
+        // maybe not found ,whatever, ignore the err
+        console.error(err);
+    }
+    return content;
+};
+
 const database = {
     Post: {
         data: [
             { slug: 'talk-about-digitalization', title: '浅谈数字化', summary: '简单地综合阐述一下数字化', date: '2023-02-24', hero: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE0fHxkYXRhJTIwY2VudGVyfGVufDB8fHx8MTY3NzIyNTQ4Mw&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000' },
             { slug: 'talk-about-lowcode', title: '"低代码“之我见', summary: '简单地综合阐述一下低代码', date: '2021-11-11', hero: '/images/posts/talk-about-lowcode/hero.jpg' },
+            { type: 'md', slug: 'leetcode-note', title: 'LeetCode 笔记', summary: '为了学习 Rust 刷了 2 年的 LeetCode，总结了个笔记，收藏了一些好题。', date: '2021-09-27', hero: '/images/posts/leetcode-note/hero.jpg' },
             { slug: 'architecture-core', title: '架构那些事儿 - 核心思想', summary: '架构师，架构设计，如何做架构', date: '2021-05-19', hero: '/images/posts/architecture-core/hero.jpg' },
             { slug: 'architecture-guide', title: '架构那些事儿 - 工作指南', summary: '架构师，架构设计，如何做架构', date: '2021-05-18', hero: '/images/posts/architecture-guide/hero.jpg' },
             { slug: 'talent-six-tao', title: '人才”六道“之说', summary: '如何才是一个优秀的人？看看我的人才”六道“之说。', date: '2020-11-14', hero: '/images/posts/talent-six-tao/hero.jpg' },
@@ -50,7 +64,7 @@ const database = {
                 const post = posts.find(post => post.slug === v.slug);
                 if (!post) return null;
                 post.views = v.total;
-                post.content = await fs.readFile(`./content/posts/${post.slug}.html`, { encoding: 'utf-8' });
+                post.content = await readContent({ slug: post.slug, isMarkdown: post.type === 'md' });
                 return post;
             }));
             topPosts = topPosts.filter(post => post);
@@ -61,8 +75,7 @@ const database = {
             if (!post) return null;
             const viewCount = await prisma.viewCount.findUnique({ where: { slug } });
             post.views = viewCount ? viewCount.total : 0;
-            // load html from content
-            post.content = await fs.readFile(`./content/posts/${post.slug}.html`, { encoding: 'utf-8' });
+            post.content = await readContent({ slug: post.slug, isMarkdown: post.type === 'md' });
             return post;
         },
         async incrementViews(slug) {
@@ -102,8 +115,7 @@ const database = {
         async getWork(slug) {
             const work = this.data.find(w => w.slug === slug);
             if (!work) return null;
-            // load html from content
-            work.content = await fs.readFile(`./content/works/${work.slug}.html`, { encoding: 'utf-8' });
+            work.content = await readContent({ slug: work.slug, isPost: false });
             return work;
         },
         async getTopWorks(limit = 4) {
@@ -121,6 +133,7 @@ const database = {
             { title: 'NodeJS', quality: 4, color: '#339933' },
             { title: 'Fastify', quality: 4, },
             { title: 'Prisma', quality: 4, },
+            { title: 'NextJS', quality: 3, },
             { title: 'React', quality: 3, color: '#61DAFB' },
             { title: 'Vite', quality: 3, color: '#646CFF' },
             { title: 'MySQL', quality: 4, color: '#4479A1' },

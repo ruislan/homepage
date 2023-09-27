@@ -42,8 +42,8 @@ export default function GearsPage() {
                 <h3>其他</h3>
                 <ul>
                     <li>HUAWEI Watch GT 3 </li>
-                    <li>EDIFIER LolliPods</li>
-                    <li>IPhone X / Redmi Note 9</li>
+                    <li>EDIFIER 花再 Zero Pro</li>
+                    <li>IPhone 11 / Redmi Note 9</li>
                 </ul>
             </Paragraph>
         </div>
