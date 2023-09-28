@@ -12,7 +12,7 @@ export default async function WorksPage() {
         <div>
             <h1 className='font-bold text-2xl mb-8'>我的工作</h1>
 
-            <div className='grid grid-cols-2 my-6 gap-4 w-full'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 my-6 gap-4 w-full'>
                 {works.map((work, index) => <WorkCard key={index} work={work} />)}
             </div>
         </div>

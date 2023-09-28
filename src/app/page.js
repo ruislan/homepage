@@ -41,7 +41,7 @@ export default async function Page() {
           最近 2、3 年时间，开始利用一些闲暇时间做一些东西，也算是边学习边练手。
           这些东西包括一些语言的学习，一些想法的实现以及对一些有意思项目的模仿，例如 Steam 社区。
         </Paragraph>
-        <div className='grid grid-cols-2 my-6 gap-4 w-full'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 my-6 gap-4 w-full'>
           {works.map(work => <WorkCard key={work.slug} work={work} />)}
         </div>
       </section>

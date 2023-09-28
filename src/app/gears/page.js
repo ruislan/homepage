@@ -13,9 +13,9 @@ export default function GearsPage() {
                 <h3>硬件</h3>
                 <ul>
                     <li>16&quot; Macbook Pro (2019)</li>
-                    <li>Inter i7 8700k / Nvidia GTX 1060 Ti / 海盗船 32G DDR4</li>
+                    <li>Inter i7 8700k / NVIDIA GTX 1060 Ti / 海盗船 32G DDR4</li>
                     <li>24&quot; DELL 2K IPS / 27&quot; AOC 75Hz </li>
-                    <li>AKKO 3108 9009Retro 108 键 / AKKO 3084 84 键</li>
+                    <li>AKKO 3108 9009 Retro 108 键 / AKKO 3084 84 键</li>
                     <li>Razer 蝰蛇精英版 16000DPI</li>
                 </ul>
             </Paragraph>
