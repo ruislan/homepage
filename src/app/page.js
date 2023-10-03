@@ -7,8 +7,8 @@ import ToolTip from './components/tooltip';
 import SkillCard from './components/skill-card';
 import { ExternalLink } from './components/icons';
 
-// refresh every 1 hour
-export const revalidate = 3600;
+// refresh every half an hour
+export const revalidate = 1800;
 
 export default async function Page() {
   const posts = await database.Post.getTopViewPosts();
@@ -49,8 +49,8 @@ export default async function Page() {
       <section>
         <Paragraph>
           入行初期最喜欢的是 Java ，迷恋了 10 多年，从 JDK1.2 走到了现在，后来被 Kotlin 的语法糖和高效迷得神魂颠倒，再后来痴迷于 Rust 的设计思想，
-          并且为了学习它疯狂做了几百道 LeetCode 题目，最近一段时间在关注、学习和使用这些技术：NodeJS，Fastify，Prisma，React，Vite，NextJS。以及，
-          有了虚拟线程的非常棒的 JDK 21。
+          并且为了学习它做了几百道 LeetCode 题目。最近一段时间在关注、学习和使用这些技术：Fastify，Prisma，React，Vite，NextJS，
+          以及有了虚拟线程的非常棒的 JDK 21。 对于技术栈来说，没有偏爱，工作更多的是 Java Stack ， 而个人更多的是 JS Stack 。
         </Paragraph>
         <div className='flex flex-wrap my-6 gap-2 w-full'>
           {skills.map(skill => <SkillCard key={skill.title} skill={skill} />)}
