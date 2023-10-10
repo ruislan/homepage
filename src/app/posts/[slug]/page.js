@@ -2,11 +2,14 @@
 import ReactMarkdown from 'react-markdown';
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
+import { revalidatePath } from 'next/cache';
 
 async function getPost({ slug }) {
     const post = await database.Post.getPost(slug);
     if (!post) return null;
     await database.Post.incrementViews(slug);
+    revalidatePath('/posts');
+    revalidatePath('/');
     return post;
 }
 
