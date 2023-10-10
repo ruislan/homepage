@@ -131,24 +131,84 @@ const database = {
     },
     Skill: {
         data: [
-            { title: 'Java', quality: 5, },
-            { title: 'Kotlin', quality: 5, color: '#7F52FF' },
-            { title: 'Spring', quality: 4, color: '#6DB33F' },
-            { title: 'Rust', quality: 3, },
-            { title: 'JavaScript', quality: 4, color: '#F7DF1E' },
-            { title: 'NodeJS', quality: 4, color: '#339933' },
-            { title: 'Fastify', quality: 4, },
-            { title: 'Prisma', quality: 4, },
-            { title: 'NextJS', quality: 3, },
-            { title: 'React', quality: 3, color: '#61DAFB' },
-            { title: 'Vite', quality: 3, color: '#646CFF' },
-            { title: 'MySQL', quality: 4, color: '#4479A1' },
-            { title: 'SQLite', quality: 4, color: '#2496ED' },
-            { title: 'MongoDB', quality: 4, color: '#47A248' },
-            { title: 'Redis', quality: 2, color: '#DC382D' },
-            { title: 'RabbitMQ', quality: 1, color: '#FF6600' },
-            { title: 'Docker', quality: 4, color: '#2496ED' },
-            { title: 'Git', quality: 4, color: '#F05032' },
+            [
+                {
+                    title: '前端',
+                    items: [
+                        { title: 'NextJS', quality: 3, },
+                        { title: 'React', quality: 3, color: '#61DAFB' },
+                        { title: 'Vite', quality: 3, color: '#646CFF' },
+                        { title: 'TailwindCSS', quality: 3, color: '#06B6D4' },
+                        { title: 'BaseWeb', quality: 4, },
+                        { title: 'Bootstrap', quality: 5, color: '#7952B3' },
+                        { title: 'JQuery', quality: 5, color: '#0769AD' },
+                    ]
+                },
+            ],
+            [
+                {
+                    title: 'JVM Stack',
+                    items: [
+                        { title: 'Spring', quality: 4, color: '#6DB33F' },
+                        { title: 'JPA', quality: 4 },
+                        { title: 'Gradle', quality: 3, color: '#02303A' },
+                        { title: 'Maven', quality: 3, color: '#C71A36' },
+                    ]
+                },
+                {
+                    title: 'NodeJS Stack',
+                    items: [
+                        { title: 'NodeJS', quality: 4, color: '#339933' },
+                        { title: 'Fastify', quality: 4, },
+                        { title: 'Prisma', quality: 4, },
+                    ]
+                },
+            ],
+            [
+                {
+                    title: '程序语言',
+                    items: [
+                        { title: 'Java', quality: 5, },
+                        { title: 'Kotlin', quality: 4, color: '#7F52FF' },
+                        { title: 'JavaScript', quality: 4, color: '#F7DF1E' },
+                        { title: 'Rust', quality: 3, },
+                    ]
+                },
+            ],
+            [
+                {
+                    title: '研发工具/软件',
+                    items: [
+                        { title: 'JetBrains IDEA', quality: 4 },
+                        { title: 'Visual Studio Code', quality: 4, color: '#2496ED' },
+                        { title: 'DBeaver', quality: 4, color: '#47A248' },
+                        { title: 'Jenkins', quality: 3, color: '#D24939' },
+                        { title: 'TeamCity', quality: 3 },
+                        { title: 'Git', quality: 4, color: '#F05032' },
+                    ]
+                },
+            ],
+            [
+                {
+                    title: '中间件/数据库',
+                    items: [
+                        { title: 'MySQL', quality: 4, color: '#4479A1' },
+                        { title: 'SQLite', quality: 4, color: '#2496ED' },
+                        { title: 'MongoDB', quality: 4, color: '#47A248' },
+                        { title: 'Redis', quality: 2, color: '#DC382D' },
+                        { title: 'RabbitMQ', quality: 2, color: '#FF6600' },
+                    ]
+                }
+            ],
+            [
+                {
+                    title: '运行环境',
+                    items: [
+                        { title: 'Ubuntu', quality: 4, color: '#E95420' },
+                        { title: 'Docker', quality: 4, color: '#2496ED' },
+                    ]
+                }
+            ],
         ],
         async getSkills() {
             return this.data;
