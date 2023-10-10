@@ -1,13 +1,18 @@
-import { revalidatePath } from 'next/cache';
+
 import ReactMarkdown from 'react-markdown';
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
 
+async function getPost({ slug }) {
+    const post = await database.Post.getPost(slug);
+    if (!post) return null;
+    await database.Post.incrementViews(slug);
+    return post;
+}
+
 export default async function PostPage({ params }) {
-    const post = await database.Post.getPost(params.slug);
-    if (!post) return 'Not Found';
-    await database.Post.incrementViews(params.slug);
-    revalidatePath('/posts'); // refresh /posts cache
+    const post = await getPost({ slug: params.slug });
+
     return (
         <div className='flex flex-col box-border'>
             <h1 className='font-bold text-2xl'>{post.title}</h1>

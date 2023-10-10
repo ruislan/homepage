@@ -7,8 +7,12 @@ export const metadata = {
     description: '分享我在编码、研发、架构、设计、管理、娱乐、健身等各个方面的所思所想所学',
 };
 
+async function getPostGroups() {
+    return await database.Post.getPostsGroupByYear();
+}
+
 export default async function PostsPage() {
-    const groups = await database.Post.getPostsGroupByYear();
+    const groups = await getPostGroups();
     return (
         <div>
             <h1 className='font-bold text-2xl mb-8'>我的博客</h1>

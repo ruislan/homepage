@@ -10,10 +10,22 @@ import SkillLayer from './components/skill-layer';
 // refresh every half an hour
 export const revalidate = 1800;
 
+async function getPosts() {
+  return await database.Post.getTopViewPosts();
+}
+
+async function getWorks() {
+  return await database.Work.getTopWorks();
+}
+
+async function getSkills() {
+  return await database.Skill.getSkills();
+}
+
 export default async function Page() {
-  const posts = await database.Post.getTopViewPosts();
-  const works = await database.Work.getTopWorks();
-  const skills = await database.Skill.getSkills();
+  const posts = await getPosts();
+  const works = await getWorks();
+  const skills = await getSkills();
 
   return (
     <div>
