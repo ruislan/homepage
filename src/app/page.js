@@ -13,7 +13,7 @@ export const revalidate = 1800;
 export default async function Page() {
   const posts = await database.Post.getTopViewPosts();
   const works = await database.Work.getTopWorks();
-  const skills = (await database.Skill.getSkills()).sort((a, b) => b.yIndex - a.yIndex);
+  const skills = await database.Skill.getSkills();
 
   return (
     <div>
