@@ -23,7 +23,7 @@ export default async function WorksPage({ params }) {
                 </div>
             </div>
             <div className='flex flex-warp my-2 gap-2'>
-                {work.tags?.map(tag => (<Tag key={tag.name} name={tag.name} color={tag.color} />))}
+                {work.tags?.map(tag => (<Tag key={tag.name}>{tag.name}</Tag>))}
             </div>
             <Paragraph dangerouslySetInnerHTML={{ __html: work.content }} />
         </div>

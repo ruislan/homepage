@@ -2,12 +2,10 @@
 
 import clsx from "clsx";
 
-export default function Tag({ name, color }) {
+export default function Tag({ className, ...rest }) {
     return (
-        <div className={clsx('inline-block align-text-top text-xs',
+        <span className={clsx('inline-block whitespace-nowrap align-text-top text-xs',
             'bg-neutral-700 hover:bg-neutral-600 text-neutral-50 hover:text-neutral-100',
-            'cursor-pointer hover:shadow-md p-1 rounded-lg')}>
-            {name}
-        </div>
+            'cursor-pointer shadow-md px-2 py-1 rounded-lg', className)} {...rest} />
     );
 };

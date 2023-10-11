@@ -95,10 +95,10 @@ const database = {
                 github: 'https://github.com/ruislan/ktap',
                 demo: 'https://ktap.ruislan.com',
                 tags: [
-                    { name: 'React', color: '' },
-                    { name: 'BaseWeb', color: '' },
-                    { name: 'Fastify', color: '' },
-                    { name: 'Prisma', color: '' },
+                    { name: 'React', },
+                    { name: 'BaseWeb', },
+                    { name: 'Fastify', },
+                    { name: 'Prisma', },
                 ]
             },
             {
@@ -108,11 +108,11 @@ const database = {
                 github: 'https://github.com/ruislan/simple-crm',
                 demo: 'https://sc.ruislan.com',
                 tags: [
-                    { name: 'Bootstrap 5', color: '#7952B3' },
-                    { name: 'Nunjucks', color: '' },
-                    { name: 'JQuery', color: '' },
-                    { name: 'Fastify', color: '' },
-                    { name: 'Prisma', color: '' },
+                    { name: 'Bootstrap 5', },
+                    { name: 'Nunjucks', },
+                    { name: 'JQuery', },
+                    { name: 'Fastify', },
+                    { name: 'Prisma', },
                 ]
             },
             {
@@ -121,7 +121,7 @@ const database = {
                 cover: '/images/works/leetcode-rust/screenshot.png',
                 github: 'https://github.com/ruislan/leetcode',
                 tags: [
-                    { name: 'Rust', color: '' },
+                    { name: 'Rust', },
                 ]
             },
             {
@@ -130,9 +130,9 @@ const database = {
                 cover: '/images/works/korderbook/screenshot.png',
                 github: 'https://github.com/ruislan/korderbook',
                 tags: [
-                    { name: 'Match Engine', color: '' },
-                    { name: 'Java', color: '' },
-                    { name: 'Kotlin', color: '' },
+                    { name: 'Matching Engine', },
+                    { name: 'Java', },
+                    { name: 'Kotlin', },
                 ]
             },
         ],
