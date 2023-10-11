@@ -94,6 +94,12 @@ const database = {
                 cover: '/images/works/ktap/cover.png',
                 github: 'https://github.com/ruislan/ktap',
                 demo: 'https://ktap.ruislan.com',
+                tags: [
+                    { name: 'React', color: '' },
+                    { name: 'BaseWeb', color: '' },
+                    { name: 'Fastify', color: '' },
+                    { name: 'Prisma', color: '' },
+                ]
             },
             {
                 slug: 'simple-crm', title: 'Simple CRM', date: '2022-09',
@@ -101,18 +107,33 @@ const database = {
                 cover: '/images/works/simple-crm/dashboard.png',
                 github: 'https://github.com/ruislan/simple-crm',
                 demo: 'https://sc.ruislan.com',
+                tags: [
+                    { name: 'Bootstrap 5', color: '#7952B3' },
+                    { name: 'Nunjucks', color: '' },
+                    { name: 'JQuery', color: '' },
+                    { name: 'Fastify', color: '' },
+                    { name: 'Prisma', color: '' },
+                ]
             },
             {
                 slug: 'leetcode-rust', title: 'LeetCode in Rust', date: '2021-09',
                 summary: '学习 Rust 时刷了几百道 LeetCode 题，以及一些算法',
                 cover: '/images/works/leetcode-rust/screenshot.png',
                 github: 'https://github.com/ruislan/leetcode',
+                tags: [
+                    { name: 'Rust', color: '' },
+                ]
             },
             {
                 slug: 'korderbook', title: 'Simple OrderBook', date: '2018-09',
                 summary: '简单的 Order Match Engine， 支持限价单和市价单',
                 cover: '/images/works/korderbook/screenshot.png',
                 github: 'https://github.com/ruislan/korderbook',
+                tags: [
+                    { name: 'Match Engine', color: '' },
+                    { name: 'Java', color: '' },
+                    { name: 'Kotlin', color: '' },
+                ]
             },
         ],
         getWorks() {
@@ -161,6 +182,8 @@ const database = {
                         { title: 'NodeJS', quality: 4, color: '#339933' },
                         { title: 'Fastify', quality: 4, },
                         { title: 'Prisma', quality: 4, },
+                        { title: 'Pnpm', quality: 3, color: '#F69220' },
+                        { title: 'Yarn', quality: 3, color: '#2C8EBB' },
                     ]
                 },
             ],

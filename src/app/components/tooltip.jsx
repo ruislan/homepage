@@ -1,8 +1,8 @@
 'use client';
-import React from 'react';
+import { useState } from 'react';
 
 export default function ToolTip({ content, children }) {
-    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     return (
         <div className='relative inline-block' onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
             {children}

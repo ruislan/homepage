@@ -1,5 +1,10 @@
 import clsx from 'clsx';
-import { Git, JavaScript, Kotlin, MongoDB, NextJS, React, NodeJS, Rust, Vite, SQLite, Spring, Java, Redis, Prisma, Fastify, Docker, MySQL, RabbitMQ, Ubuntu, JetBrainsIDEA, VSCode, Gradle, Maven, TailwindCSS, Bootstrap, JQuery, Teamcity, Jenkins } from './icons';
+import {
+    Git, JavaScript, Kotlin, MongoDB, NextJS, React, NodeJS, Rust,
+    Vite, SQLite, Spring, Java, Redis, Prisma, Fastify, Docker, MySQL,
+    RabbitMQ, Ubuntu, JetBrainsIDEA, VSCode, Gradle, Maven, TailwindCSS,
+    Bootstrap, JQuery, Teamcity, Jenkins, Pnpm, Yarn
+} from './icons';
 
 function Icon({ title }) {
     let icon = null;
@@ -32,6 +37,8 @@ function Icon({ title }) {
         case 'JQuery': icon = <JQuery />; break;
         case 'Jenkins': icon = <Jenkins />; break;
         case 'TeamCity': icon = <Teamcity />; break;
+        case 'Pnpm': icon = <Pnpm />; break;
+        case 'Yarn': icon = <Yarn />; break;
         default: break;
     }
     if (!icon) return null;
