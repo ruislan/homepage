@@ -157,9 +157,9 @@ const database = {
                     title: '前端',
                     items: [
                         { title: 'NextJS', quality: 3, },
-                        { title: 'React', quality: 3, color: '#61DAFB' },
+                        { title: 'React', quality: 4, color: '#61DAFB' },
                         { title: 'Vite', quality: 3, color: '#646CFF' },
-                        { title: 'TailwindCSS', quality: 3, color: '#06B6D4' },
+                        { title: 'TailwindCSS', quality: 4, color: '#06B6D4' },
                         { title: 'BaseWeb', quality: 4, },
                         { title: 'Bootstrap', quality: 5, color: '#7952B3' },
                         { title: 'JQuery', quality: 5, color: '#0769AD' },
@@ -172,6 +172,7 @@ const database = {
                     items: [
                         { title: 'Spring', quality: 4, color: '#6DB33F' },
                         { title: 'JPA', quality: 4 },
+                        { title: 'JUnit5', quality: 4, color: '#25A162' },
                         { title: 'Gradle', quality: 3, color: '#02303A' },
                         { title: 'Maven', quality: 3, color: '#C71A36' },
                     ]
@@ -192,8 +193,8 @@ const database = {
                     title: '程序语言',
                     items: [
                         { title: 'Java', quality: 5, },
-                        { title: 'Kotlin', quality: 4, color: '#7F52FF' },
-                        { title: 'JavaScript', quality: 4, color: '#F7DF1E' },
+                        { title: 'Kotlin', quality: 5, color: '#7F52FF' },
+                        { title: 'JavaScript', quality: 5, color: '#F7DF1E' },
                         { title: 'Rust', quality: 3, },
                     ]
                 },
@@ -207,7 +208,7 @@ const database = {
                         { title: 'DBeaver', quality: 4, color: '#47A248' },
                         { title: 'Jenkins', quality: 3, color: '#D24939' },
                         { title: 'TeamCity', quality: 3 },
-                        { title: 'Git', quality: 4, color: '#F05032' },
+                        { title: 'Git', quality: 3, color: '#F05032' },
                     ]
                 },
             ],
@@ -218,8 +219,8 @@ const database = {
                         { title: 'MySQL', quality: 4, color: '#4479A1' },
                         { title: 'SQLite', quality: 4, color: '#2496ED' },
                         { title: 'MongoDB', quality: 4, color: '#47A248' },
-                        { title: 'Redis', quality: 2, color: '#DC382D' },
-                        { title: 'RabbitMQ', quality: 2, color: '#FF6600' },
+                        { title: 'Redis', quality: 3, color: '#DC382D' },
+                        { title: 'RabbitMQ', quality: 3, color: '#FF6600' },
                     ]
                 }
             ],

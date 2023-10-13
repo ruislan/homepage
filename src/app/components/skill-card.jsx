@@ -3,7 +3,7 @@ import {
     Git, JavaScript, Kotlin, MongoDB, NextJS, React, NodeJS, Rust,
     Vite, SQLite, Spring, Java, Redis, Prisma, Fastify, Docker, MySQL,
     RabbitMQ, Ubuntu, JetBrainsIDEA, VSCode, Gradle, Maven, TailwindCSS,
-    Bootstrap, JQuery, Teamcity, Jenkins, Pnpm, Yarn
+    Bootstrap, JQuery, Teamcity, Jenkins, Pnpm, Yarn, JUnit5
 } from './icons';
 
 function Icon({ title }) {
@@ -39,10 +39,11 @@ function Icon({ title }) {
         case 'TeamCity': icon = <Teamcity />; break;
         case 'Pnpm': icon = <Pnpm />; break;
         case 'Yarn': icon = <Yarn />; break;
+        case 'JUnit5': icon = <JUnit5 />; break;
         default: break;
     }
     if (!icon) return null;
-    return <div className='w-5 h-5 mr-2'>{icon}</div>;
+    return <div className='w-4 h-4 mr-2'>{icon}</div>;
 }
 
 function getQualityColor(quality) {
@@ -58,12 +59,12 @@ function getQualityColor(quality) {
 
 export default function SkillCard({ skill }) {
     return (
-        <div className={clsx('relative cursor-pointer bg-neutral-950/50 shadow-lg border border-neutral-700',
-            'rounded-lg flex items-center p-2 py-1 hover:border-neutral-600',
+        <div className={clsx('relative cursor-pointer bg-neutral-950/50 shadow-md border border-neutral-700',
+            'rounded-lg flex items-center px-2 py-1.5 hover:border-neutral-600',
             `hover:animate-wave hover:backdrop-blur-sm ${getQualityColor(skill.quality)}`)}
         >
             <span style={{ color: skill.color }}><Icon title={skill.title} /></span>
-            <span className='text-neutral-300'>{skill.title}</span>
+            <span className='text-neutral-300 text-sm'>{skill.title}</span>
         </div>
     );
 }
