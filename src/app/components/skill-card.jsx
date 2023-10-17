@@ -3,7 +3,7 @@ import {
     Git, JavaScript, Kotlin, MongoDB, NextJS, React, NodeJS, Rust,
     Vite, SQLite, Spring, Java, Redis, Prisma, Fastify, Docker, MySQL,
     RabbitMQ, Ubuntu, JetBrainsIDEA, VSCode, Gradle, Maven, TailwindCSS,
-    Bootstrap, JQuery, Teamcity, Jenkins, Pnpm, Yarn, JUnit5
+    Bootstrap, JQuery, Teamcity, Jenkins, Pnpm, Yarn, JUnit5, MariaDB, Nginx
 } from './icons';
 
 function Icon({ title }) {
@@ -23,10 +23,12 @@ function Icon({ title }) {
         case 'Git': icon = <Git />; break;
         case 'MongoDB': icon = <MongoDB />; break;
         case 'MySQL': icon = <MySQL />; break;
+        case 'MariaDB': icon = <MariaDB />; break;
         case 'SQLite': icon = <SQLite />; break;
         case 'Redis': icon = <Redis />; break;
         case 'RabbitMQ': icon = <RabbitMQ />; break;
         case 'Docker': icon = <Docker />; break;
+        case 'Nginx': icon = <Nginx />; break;
         case 'Ubuntu': icon = <Ubuntu />; break;
         case 'JetBrains IDEA': icon = <JetBrainsIDEA />; break;
         case 'Visual Studio Code': icon = <VSCode />; break;

@@ -17,6 +17,7 @@ const readContent = async ({ slug, isPost = true, isMarkdown = false }) => {
 const database = {
     Post: {
         data: [
+            { type: 'md', slug: 'my-2007', title: '我的 2007 年', summary: '在 2007 年，我竟然写了这么多博文', date: '2023-10-17', hero: '/images/posts/my-2007/hero.jpg' },
             { slug: 'talk-about-digitalization', title: '浅谈数字化', summary: '简单地综合阐述一下数字化', date: '2023-02-24', hero: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE0fHxkYXRhJTIwY2VudGVyfGVufDB8fHx8MTY3NzIyNTQ4Mw&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000' },
             { slug: 'talk-about-lowcode', title: '"低代码“之我见', summary: '简单地综合阐述一下低代码', date: '2021-11-11', hero: '/images/posts/talk-about-lowcode/hero.jpg' },
             { type: 'md', slug: 'leetcode-note', title: 'LeetCode 笔记', summary: '为了学习 Rust 刷了 2 年的 LeetCode，总结了个笔记，收藏了一些好题。', date: '2021-09-27', hero: '/images/posts/leetcode-note/hero.jpg' },
@@ -217,6 +218,7 @@ const database = {
                     title: '中间件/数据库',
                     items: [
                         { title: 'MySQL', quality: 4, color: '#4479A1' },
+                        { title: 'MariaDB', quality: 3, },
                         { title: 'SQLite', quality: 4, color: '#2496ED' },
                         { title: 'MongoDB', quality: 4, color: '#47A248' },
                         { title: 'Redis', quality: 3, color: '#DC382D' },
@@ -230,6 +232,7 @@ const database = {
                     items: [
                         { title: 'Ubuntu', quality: 4, color: '#E95420' },
                         { title: 'Docker', quality: 4, color: '#2496ED' },
+                        { title: 'Nginx', quality: 4, color: '#009639' },
                     ]
                 }
             ],
