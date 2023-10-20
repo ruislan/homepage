@@ -241,6 +241,23 @@ const database = {
         async getSkills() {
             return this.data;
         },
+    },
+    Ability: {
+        data: [
+            { name: '管理', value: '85' },
+            { name: '协作', value: '90' },
+            { name: '产品', value: '85' },
+            { name: '美术', value: '60' },
+            { name: '营销', value: '55' },
+            { name: '编码', value: '95' },
+            { name: '架构', value: '90' },
+            { name: '测试', value: '85' },
+            { name: '运维', value: '75' },
+            { name: '运营', value: '65' },
+        ],
+        async getAbilities() {
+            return this.data;
+        }
     }
 };
 

@@ -22,6 +22,9 @@ module.exports = {
       animation: {
         'wave': 'wave 0.6s 1',
         'wiggle': 'wiggle 1s infinite',
+      },
+      boxShadow: {
+        'halo': '0px 0px 10px #427ed1, 0px 0px 10px #427ed1',
       }
     },
   },

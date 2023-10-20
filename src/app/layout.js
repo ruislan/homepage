@@ -1,6 +1,7 @@
 import Header from './header';
 import Footer from './footer';
 import './globals.css';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Rui',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
           </div>
           <Footer />
         </main>
+        <Script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2509141528965621' crossOrigin='anonymous' />
       </body>
     </html>
   )

@@ -6,6 +6,7 @@ import Paragraph from './components/paragraph';
 import ToolTip from './components/tooltip';
 import { ExternalLink } from './components/icons';
 import SkillLayer from './components/skill-layer';
+import UserCard from './components/user-card';
 
 // refresh every half an hour
 export const revalidate = 1800;
@@ -22,10 +23,15 @@ async function getSkills() {
   return await database.Skill.getSkills();
 }
 
+async function getAbilities() {
+  return await database.Ability.getAbilities();
+}
+
 export default async function Page() {
   const posts = await getPosts();
   const works = await getWorks();
   const skills = await getSkills();
+  const abilities = await getAbilities();
 
   return (
     <div>
@@ -34,6 +40,7 @@ export default async function Page() {
         <Paragraph>
           一个 80 后，充满激情和创造力的全栈开发者，乐观主义者，向往一切美好的事物。
         </Paragraph>
+        <UserCard abilities={abilities} />
       </section>
 
       <section className='mb-8'>
