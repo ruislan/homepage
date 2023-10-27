@@ -7,6 +7,8 @@ export const metadata = {
     description: '分享我在编码、研发、架构、设计、管理、娱乐、健身等各个方面的所思所想所学',
 };
 
+export const revalidate = 1800;
+
 async function getPostGroups() {
     return await database.Post.getPostsGroupByYear();
 }

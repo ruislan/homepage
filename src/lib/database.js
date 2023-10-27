@@ -91,10 +91,32 @@ const database = {
     Work: {
         data: [
             {
+                slug: 'kforum', title: 'KForum', date: '2023-10',
+                summary: '一个简单、现代、有趣的论坛社区',
+                cover: '/images/works/kforum/cover.png',
+                github: 'https://github.com/ruislan/kforum',
+                demo: null,
+                versions: [
+                    { label: 'v0.5.0', state: 'dev' }
+                ],
+                tags: [
+                    { name: 'Tailwind CSS', },
+                    { name: 'NextAuth', },
+                    { name: 'NextJS', },
+                    { name: 'Prisma', },
+                ]
+            },
+            {
                 slug: 'ktap', title: 'KTap', date: '2023-06',
                 summary: '一个时尚的游戏社区平台',
                 cover: '/images/works/ktap/cover.png',
                 github: 'https://github.com/ruislan/ktap',
+                status: 'developing',
+                versions: [
+                    { label: 'v1.5.0', state: 'dev' },
+                    { label: 'v1.2.0', state: 'alpha' },
+                    { label: 'v1.0.0', state: 'alpha' },
+                ],
                 demo: 'https://ktap.ruislan.com',
                 tags: [
                     { name: 'React', },
@@ -109,6 +131,9 @@ const database = {
                 cover: '/images/works/simple-crm/dashboard.png',
                 github: 'https://github.com/ruislan/simple-crm',
                 demo: 'https://sc.ruislan.com',
+                versions: [
+                    { label: 'v1.0.0', state: 'stable' },
+                ],
                 tags: [
                     { name: 'Bootstrap 5', },
                     { name: 'Nunjucks', },
@@ -131,6 +156,9 @@ const database = {
                 summary: '简单的 Order Match Engine， 支持限价单和市价单',
                 cover: '/images/works/korderbook/screenshot.png',
                 github: 'https://github.com/ruislan/korderbook',
+                versions: [
+                    { label: 'v0.1.0', state: 'alpha' },
+                ],
                 tags: [
                     { name: 'Matching Engine', },
                     { name: 'Java', },

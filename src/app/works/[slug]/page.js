@@ -1,6 +1,7 @@
 import { Github, Window } from '@/app/components/icons';
 import Paragraph from '@/app/components/paragraph';
 import Tag from '@/app/components/tag';
+import VersionState from '@/app/components/version-state';
 import database from '@/lib/database';
 
 export default async function WorksPage({ params }) {
@@ -8,7 +9,12 @@ export default async function WorksPage({ params }) {
     if (!work) return 'Not Found';
     return (
         <div className='flex flex-col box-border'>
-            <h1 className='inline break-words font-bold text-2xl'>{work.title}</h1>
+            <div className='flex items-center gap-4'>
+                <h1 className='inline break-words font-bold text-2xl'>{work.title}</h1>
+                <div className='flex items-center gap-2'>
+                    {work.versions?.map(v => <VersionState key={v.label} label={v.label} state={v.state} />)}
+                </div>
+            </div>
             <div className='flex justify-between items-center my-2 text-sm'>
                 <p className='text-sm text-neutral-200'>
                     {work.date}
