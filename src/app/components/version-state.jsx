@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 
-const colors = {
+const bgColors = {
     'stable': 'bg-green-700',
     'beta': 'bg-blue-700',
     'alpha': 'bg-blue-700',
@@ -12,8 +12,8 @@ const colors = {
 export default function VersionState({ label, state }) {
     return (
         <div className={clsx('flex items-center gap-1 text-xs text-neutral-100 px-1 py-0.5',
-            'bg-neutral-900 rounded-lg shadow-sm font-semibold',
-            colors[state],
+            'rounded-lg shadow-sm font-semibold',
+            bgColors[state],
         )}>
             <span>{label}</span>
             <span>{state}</span>
