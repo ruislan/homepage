@@ -92,12 +92,13 @@ const database = {
         data: [
             {
                 slug: 'kforum', title: 'KForum', date: '2023-10',
-                summary: '一个简单、现代、有趣的论坛社区',
+                summary: '一个简单、现代、时尚、有趣的论坛社区',
                 cover: '/images/works/kforum/cover.png',
                 github: 'https://github.com/ruislan/kforum',
                 demo: null,
                 versions: [
-                    { label: 'v0.5.0', state: 'dev' }
+                    { label: 'v0.5.0', state: 'alpha' },
+                    { label: 'v0.6.0', state: 'dev' }
                 ],
                 tags: [
                     { name: 'Tailwind CSS', },
