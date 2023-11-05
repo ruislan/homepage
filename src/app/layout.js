@@ -19,7 +19,8 @@ export default function RootLayout({ children }) {
           </div>
           <Footer />
         </main>
-        <Script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2509141528965621' crossOrigin='anonymous' />
+        {process.env.GOOGLE_ADS_CLIENT && <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADS_CLIENT}`} crossOrigin='anonymous' />}
+        {process.env.UMAMI_WEBSITE_ID && <Script async src='https://analytics.eu.umami.is/script.js' data-website-id={process.env.UMAMI_WEBSITE_ID} crossOrigin='anonymous' />}
       </body>
     </html>
   )
