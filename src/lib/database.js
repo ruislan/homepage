@@ -17,6 +17,7 @@ const readContent = async ({ slug, isPost = true, isMarkdown = false }) => {
 const database = {
     Post: {
         data: [
+            { type: 'md', slug: 'use-pkg', title: '使用 pkg 来打包 NodeJS 应用', summary: '用 NodeJS 做了个小工具，要给不懂程序的朋友使用，就用 pkg 打个包吧。', date: '2023-11-16', hero: '/images/posts/use-pkg/hero.jpg' },
             { type: 'md', slug: 'master', title: '真正的聪明人', summary: '最近思考了一下什么才是真正的聪明人，小有感悟', date: '2023-10-18', hero: '/images/posts/master/hero.jpg' },
             { type: 'md', slug: 'my-2007', title: '我的 2007 年', summary: '在 2007 年，我竟然写了这么多博文', date: '2023-10-17', hero: '/images/posts/my-2007/hero.jpg' },
             { slug: 'talk-about-digitalization', title: '浅谈数字化', summary: '简单地综合阐述一下数字化', date: '2023-02-24', hero: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE0fHxkYXRhJTIwY2VudGVyfGVufDB8fHx8MTY3NzIyNTQ4Mw&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000' },
