@@ -7,6 +7,7 @@ const bgColors = {
     'beta': 'bg-blue-700',
     'alpha': 'bg-blue-700',
     'dev': 'bg-purple-700',
+    'plan': 'bg-yellow-700',
 };
 
 export default function VersionState({ label, state }) {

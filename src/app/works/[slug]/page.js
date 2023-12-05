@@ -12,7 +12,7 @@ export default async function WorksPage({ params }) {
             <div className='flex items-center gap-4'>
                 <h1 className='inline break-words font-bold text-2xl'>{work.title}</h1>
                 <div className='flex items-center gap-2'>
-                    {work.versions?.map(v => <VersionState key={v.label} label={v.label} state={v.state} />)}
+                    {work.versions?.slice(0,2).map(v => <VersionState key={v.label} label={v.label} state={v.state} />)}
                 </div>
             </div>
             <div className='flex justify-between items-center my-2 text-sm'>
