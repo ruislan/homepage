@@ -5,7 +5,7 @@ export const metadata = {
     description: '以下是我常用的一些装备和配置，包括编程、生活、娱乐、健身等等',
 };
 
-export default function GearsPage() {
+export default async function GearsPage() {
     return (
         <div>
             <h1 className='font-bold text-2xl mb-8'>我的装备</h1>

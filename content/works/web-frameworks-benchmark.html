@@ -1,0 +1,116 @@
+<p>
+    在写 Web 应用的时候，不管你用什么语言，大概率是会选择一个 Web Framework 的，在我的 Stack 里面，有 JVM/Rust/JS 这三大体系，所以我针对这三大体系里面的 Web
+    框架，做了一个性能测试，毕竟这些框架都是我正在或者将来要使用的。
+</p>
+<p>
+    测试环境如下：
+</p>
+<ul>
+    <li>wrk</li>
+    <li>MacBook Pro 16 inch 2019</li>
+    <li>MacOS 14.2.1</li>
+    <li>CPU 2.3 GHz Intel i9 8 Cores</li>
+    <li>Mem 16 GB 2667 MHz DDR4</li>
+</ul>
+<p>
+    每个框架都只有一个服务接口，返回 json 数据 “{ "hello" : "world" }” 。并且关闭了所有框架的日志，如果不能关闭日志的会将 level 设置为 warn ，以达到最小影响性能的目的。
+</p>
+<p>
+    使用测试语句，“wrk -t 24 -c 500 -d 30s http://localhost:6000” 进行测试。
+</p>
+<p>
+    测试结果如下：
+</p>
+<table>
+    <tr>
+        <td>语言</td>
+        <td>框架</td>
+        <td>请求/秒</td>
+        <td>传输/秒</td>
+    </tr>
+    <tr>
+        <td>bun</td>
+        <td> - </td>
+        <td>81788.24</td>
+        <td>10.22MB</td>
+    </tr>
+    <tr>
+        <td>bun</td>
+        <td>elysia</td>
+        <td>62943.20</td>
+        <td>7.50MB</td>
+    </tr>
+    <tr>
+        <td>bun</td>
+        <td>hono</td>
+        <td>51609.29</td>
+        <td>6.89MB</td>
+    </tr>
+    <tr>
+        <td>node</td>
+        <td> - </td>
+        <td>28102.89</td>
+        <td>4.61MB</td>
+    </tr>
+    <tr>
+        <td>node</td>
+        <td>express</td>
+        <td>8289.15</td>
+        <td>1.99MB</td>
+    </tr>
+    <tr>
+        <td>node</td>
+        <td>fastify</td>
+        <td>29019.23</td>
+        <td>5.20MB</td>
+    </tr>
+    <tr>
+        <td>java jdk17</td>
+        <td>vertx</td>
+        <td>68630.89</td>
+        <td>5.76MB</td>
+    </tr>
+    <tr>
+        <td>java jdk21</td>
+        <td>springboot</td>
+        <td>33597.54</td>
+        <td>8.38MB</td>
+    </tr>
+    <tr>
+        <td>java jdk21</td>
+        <td>javalin</td>
+        <td>69716.47</td>
+        <td>8.38MB</td>
+    </tr>
+    <tr>
+        <td>kotlin jdk21</td>
+        <td>ktor</td>
+        <td>43983.76</td>
+        <td>7.80MB</td>
+    </tr>
+    <tr>
+        <td>rust</td>
+        <td>actix</td>
+        <td>104463.27</td>
+        <td>12.45MB</td>
+    </tr>
+    <tr>
+        <td>rust</td>
+        <td>ntex</td>
+        <td>93931.86</td>
+        <td>11.20MB</td>
+    </tr>
+    <tr>
+        <td>rust</td>
+        <td>rocket</td>
+        <td>5372.75</td>
+        <td>1.3MB</td>
+    </tr>
+</table>
+
+<p>
+    对于 Rust 的 Rocket 可能不太准确，主要是我不知道怎么关闭或调低日志。
+</p>
+<p>
+    总的说来，Rust 🐂🍺！！。个人推荐 bun 体系的，本身基于 ziglang ， 性能仅次于 Rust，还能使用 JS/TS 写程序，而且 bun 还在不断进步，值得期待，未来我的项目也会尝试使用 Bun 系列的框架。
+</p>

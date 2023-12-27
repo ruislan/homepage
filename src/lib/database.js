@@ -93,6 +93,23 @@ const database = {
     Work: {
         data: [
             {
+                slug: 'web-frameworks-benchmark', title: 'Web 框架性能', date: '2023-12',
+                summary: '对基于 JVM/Rust/Node/Bun 体系的 Web 框架进行了性能测试',
+                cover: '/images/works/web-frameworks-benchmark/cover.jpeg',
+                github: 'https://github.com/ruislan/web-frameworks-benchmark',
+                demo: null,
+                versions: [
+                    { label: 'v0.1.0', state: 'stable' },
+                ],
+                tags: [
+                    { name: 'Rust', },
+                    { name: 'BunJS', },
+                    { name: 'Java', },
+                    { name: 'Kotlin', },
+                    { name: 'NodeJS', }
+                ]
+            },
+            {
                 slug: 'kforum', title: 'KForum', date: '2023-10',
                 summary: '一个简单、现代、有趣的论坛社区',
                 cover: '/images/works/kforum/cover.png',

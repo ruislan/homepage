@@ -10,6 +10,7 @@ const menus = [
   { path: '/', name: '首页' },
   { path: '/works', name: '工作' },
   { path: '/posts', name: '博客' },
+  { path: '/friends', name: '朋友' },
   { path: '/gears', name: '装备' },
   { path: '/privacy', name: '声明' },
   { path: 'https://github.com/ruislan/homepage', name: '源码' },
