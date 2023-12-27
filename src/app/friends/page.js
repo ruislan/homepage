@@ -31,7 +31,7 @@ export default async function FriendsPage() {
                         />
                         <div className='flex flex-col gap-2'>
                             <span className='text-gray-200 font-semibold text-base'>山瑞师兄</span>
-                            <span className='text-gray-400 text-sm'>传播经典中医者</span>
+                            <span className='text-gray-400 text-sm'>经典中医传播者</span>
                         </div>
                     </div>
                 </a>
