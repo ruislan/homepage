@@ -103,7 +103,7 @@ const database = {
                 ],
                 tags: [
                     { name: 'Rust', },
-                    { name: 'BunJS', },
+                    { name: 'Bun', },
                     { name: 'Java', },
                     { name: 'Kotlin', },
                     { name: 'NodeJS', }
@@ -116,13 +116,15 @@ const database = {
                 github: 'https://github.com/ruislan/kforum',
                 demo: null,
                 versions: [
-                    { label: 'v0.8.0', state: 'dev' },
+                    { label: 'v0.9.0', state: 'plan' },
+                    { label: 'v0.8.0', state: 'alpha' },
                     { label: 'v0.7.0', state: 'alpha' },
                     { label: 'v0.6.0', state: 'alpha' },
                     { label: 'v0.5.0', state: 'alpha' },
                 ],
                 tags: [
                     { name: 'Tailwind CSS', },
+                    { name: 'Headline UI', },
                     { name: 'NextAuth', },
                     { name: 'NextJS', },
                     { name: 'Prisma', },
