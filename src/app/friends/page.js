@@ -11,7 +11,7 @@ export default async function FriendsPage() {
         <div className='mb-8'>
             <h1 className='font-bold text-2xl mb-8'>我的朋友们</h1>
             <div className='text-gray-300 mb-8'>三人行，必有我师，朋友多了路好走，感谢我生命中出现的每个朋友，🙏🫡。</div>
-            <div className='grid grid-cols-3 gap-2'>
+            <div className='grid md:grid-cols-3 grid-cols-1 gap-2'>
                 <a
                     href='https://www.kylinwit.com'
                     target='_blank'
