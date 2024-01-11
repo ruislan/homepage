@@ -14,7 +14,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # RUN yarn prisma db push
-RUN yarn generate
+RUN yarn prisma generate
 RUN yarn build
 
 ENV PORT 3000
