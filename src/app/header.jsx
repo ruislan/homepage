@@ -8,7 +8,7 @@ import { Terminal } from './components/icons';
 
 const menus = [
   { path: '/', name: '首页' },
-  { path: '/works', name: '工作' },
+  { path: '/projects', name: '项目' },
   { path: '/posts', name: '博客' },
   { path: '/friends', name: '朋友' },
   { path: '/gears', name: '装备' },
@@ -19,7 +19,7 @@ const menus = [
 export default function Header() {
   let pathname = usePathname() || '/';
   if (pathname.includes('/posts/')) pathname = '/posts';
-  else if (pathname.includes('/works/')) pathname = '/works';
+  else if (pathname.includes('/projects/')) pathname = '/projects';
 
   return (
     <header>

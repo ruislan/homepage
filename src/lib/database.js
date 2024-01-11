@@ -2,7 +2,7 @@ import prisma from './prisma';
 import fs from 'fs/promises';
 
 const readContent = async ({ slug, isPost = true, isMarkdown = false }) => {
-    let filename = isPost ? `./content/posts/${slug}` : `./content/works/${slug}`;
+    let filename = isPost ? `./content/posts/${slug}` : `./content/projects/${slug}`;
     filename = isMarkdown ? `${filename}.md` : `${filename}.html`;
     let content = null;
     try {
@@ -91,12 +91,12 @@ const database = {
             });
         }
     },
-    Work: {
+    Project: {
         data: [
             {
                 slug: 'web-frameworks-benchmark', title: 'Web 框架性能', date: '2023-12',
                 summary: '对基于 JVM/Rust/Node/Bun 体系的 Web 框架进行了性能测试',
-                cover: '/images/works/web-frameworks-benchmark/cover.jpeg',
+                cover: '/images/projects/web-frameworks-benchmark/cover.jpeg',
                 github: 'https://github.com/ruislan/web-frameworks-benchmark',
                 demo: null,
                 versions: [
@@ -113,7 +113,7 @@ const database = {
             {
                 slug: 'kforum', title: 'KForum', date: '2023-10',
                 summary: '一个简单、现代、有趣的论坛社区',
-                cover: '/images/works/kforum/cover.png',
+                cover: '/images/projects/kforum/cover.png',
                 github: 'https://github.com/ruislan/kforum',
                 demo: null,
                 versions: [
@@ -135,7 +135,7 @@ const database = {
             {
                 slug: 'ktap', title: 'KTap', date: '2023-06',
                 summary: '一个时尚的游戏社区平台',
-                cover: '/images/works/ktap/cover.png',
+                cover: '/images/projects/ktap/cover.png',
                 github: 'https://github.com/ruislan/ktap',
                 status: 'developing',
                 versions: [
@@ -155,7 +155,7 @@ const database = {
             {
                 slug: 'simple-crm', title: 'Simple CRM', date: '2022-09',
                 summary: 'Simple CRM 天然契合小微企业或者小团队及个人使用。以客户为中心，以人为本，促成交，存数据，挖价值，创业绩。',
-                cover: '/images/works/simple-crm/dashboard.png',
+                cover: '/images/projects/simple-crm/dashboard.png',
                 github: 'https://github.com/ruislan/simple-crm',
                 demo: 'https://sc.ruislan.com',
                 versions: [
@@ -173,7 +173,7 @@ const database = {
             {
                 slug: 'leetcode-rust', title: 'LeetCode in Rust', date: '2021-09',
                 summary: '学习 Rust 时刷了几百道 LeetCode 题，以及一些算法',
-                cover: '/images/works/leetcode-rust/screenshot.png',
+                cover: '/images/projects/leetcode-rust/screenshot.png',
                 github: 'https://github.com/ruislan/leetcode',
                 tags: [
                     { name: 'Rust', },
@@ -182,7 +182,7 @@ const database = {
             {
                 slug: 'korderbook', title: 'Simple OrderBook', date: '2018-09',
                 summary: '简单的 Order Match Engine， 支持限价单和市价单',
-                cover: '/images/works/korderbook/screenshot.png',
+                cover: '/images/projects/korderbook/screenshot.png',
                 github: 'https://github.com/ruislan/korderbook',
                 versions: [
                     { label: 'v0.1.0', state: 'alpha' },
@@ -194,16 +194,16 @@ const database = {
                 ]
             },
         ],
-        getWorks() {
+        getProjects() {
             return this.data;
         },
-        async getWork(slug) {
-            const work = this.data.find(w => w.slug === slug);
-            if (!work) return null;
-            work.content = await readContent({ slug: work.slug, isPost: false });
-            return work;
+        async getProject(slug) {
+            const project = this.data.find(w => w.slug === slug);
+            if (!project) return null;
+            project.content = await readContent({ slug: project.slug, isPost: false });
+            return project;
         },
-        async getTopWorks(limit = 4) {
+        async getTopProjects(limit = 4) {
             // chose most like
             return this.data.slice(0, limit);
         }
