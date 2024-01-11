@@ -26,7 +26,7 @@ export default function Header() {
       <nav className='flex flex-col md:flex-row md:items-center pt-8 pb-4 md:pb-8'>
         <a href='/' className='font-bold text-lg md:mr-6 mb-6 md:mb-0 flex items-center gap-1'>
           <span className='w-6 h-6'><Terminal /></span>
-          <span>Rui's Studio</span>
+          <span>Rui</span>
         </a>
         <div className='flex flex-wrap items-center gap-4'>
           {menus.map(({ path, name }) => {

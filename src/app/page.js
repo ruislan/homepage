@@ -9,6 +9,7 @@ import ToolTip from './components/tooltip';
 import { ExternalLink } from './components/icons';
 import SkillLayer from './components/skill-layer';
 import UserCard from './components/user-card';
+import UnderlineHeading from './components/underline-heading';
 
 // refresh every half an hour
 export const revalidate = 1800;
@@ -30,10 +31,7 @@ async function PostsSection() {
   const posts = await database.Post.getTopViewPosts();
   return (
     <section className='mb-8'>
-      <div>
-        <h3 className='text-gray-50 font-semibold'>热博</h3>
-        <div></div>
-      </div>
+      <UnderlineHeading title='博客' />
       <Paragraph>
         在我从写下第一行商业代码开始的 19 年时间里（从 2004 年开始），就没有停止过写点东西并且分享出来，
         这些东西包含了我学习获得知识、研发遇到的坑、以及一些突发奇想和各种感悟，我想尽量简单地写下来，在这里分享。
@@ -51,6 +49,7 @@ async function ProjectsSection() {
   const projects = await database.Project.getTopProjects();
   return (
     <section className='mb-8'>
+      <UnderlineHeading title='项目' />
       <Paragraph>
         最近 2、3 年时间，开始利用一些闲暇时间做一些东西，也算是边学习边练手。
         这些东西包括一些语言的学习，一些想法的实现以及对一些有意思项目的模仿，例如 Steam 社区。
@@ -66,6 +65,7 @@ async function SkillsSection() {
   const skills = await database.Skill.getSkills();
   return (
     <section className='mb-8'>
+      <UnderlineHeading title='技能' />
       <Paragraph>
         入行初期最喜欢的是 Java ，迷恋了 10 多年，从 JDK1.2 走到了现在，后来被 Kotlin 的语法糖和高效迷得神魂颠倒，再后来痴迷于 Rust 的设计思想，
         并且为了学习它做了几百道 LeetCode 题目。最近一段时间在关注、学习和使用这些技术：Fastify，Prisma，React，Vite，NextJS，
@@ -99,7 +99,10 @@ async function FootSection() {
 export default async function Page() {
   return (
     <div>
-      <h1 className='font-bold text-2xl mb-8'>Hi，大家好，我是 Rui 🤟🏼</h1>
+      <h1 className='flex items-center font-bold text-2xl mb-8'>
+        <div className='hover:animate-hello mr-2 cursor-pointer'>👋🏼</div>
+        <div>Hello，我是 Rui</div>
+      </h1>
       <AbilitiesSection />
       <PostsSection />
       <ProjectsSection />
