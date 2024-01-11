@@ -13,8 +13,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# RUN yarn prisma db push
-RUN yarn prisma generate
+RUN mv /app/.env.example /app/.env
+RUN yarn prisma db push
 RUN yarn build
 
 ENV PORT 3000
