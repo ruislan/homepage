@@ -12,7 +12,7 @@ const bgColors = {
 
 export default function VersionState({ label, state }) {
     return (
-        <div className={clsx('flex items-center gap-1 text-xs text-neutral-100 px-1 py-0.5',
+        <div className={clsx('flex items-center gap-1 text-xs text-gray-100 px-1 py-0.5',
             'rounded-lg shadow-sm font-semibold',
             bgColors[state],
         )}>

@@ -10,10 +10,10 @@ export default function ProjectCard({ project }) {
             </div>
             <div className='flex flex-col py-4 px-3 w-full'>
                 <div className='flex items-center mb-1 gap-2'>
-                    <span className='font-bold text-neutral-100'>{project.title}</span>
+                    <span className='font-bold text-gray-100'>{project.title}</span>
                     {project?.versions?.length > 0 && (<VersionState key={project.versions[0].label} label={project.versions[0].label} state={project.versions[0].state} />)}
                 </div>
-                <p className='line-clamp-2  h-10 text-sm text-neutral-600 dark:text-neutral-400'>{project.summary}</p>
+                <p className='line-clamp-2  h-10 text-sm text-gray-600 dark:text-gray-400'>{project.summary}</p>
             </div>
             <div className='flex w-full flex-wrap overflow-hidden pl-3 pr-3 pb-3 gap-2'>
                 {project.tags?.map(tag => <Tag key={tag.name}>{tag.name}</Tag>)}

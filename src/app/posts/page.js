@@ -23,7 +23,7 @@ export default async function PostsPage() {
                 {groups.map(({ year, posts }) => (
                     <div key={year} className='flex flex-col gap-4'>
                         <div className='flex items-center gap-2'>
-                            <h2 className='font-bold text-xl text-neutral-50'>{year}</h2>
+                            <h2 className='font-bold text-xl text-gray-50'>{year}</h2>
                             <span className='mt-1 grow border-b border-neutral-600/50' />
                         </div>
                         <div className='flex flex-col gap-4'>

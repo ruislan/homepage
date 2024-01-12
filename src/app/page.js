@@ -37,9 +37,17 @@ async function PostsSection() {
         这些东西包含了我学习获得知识、研发遇到的坑、以及一些突发奇想和各种感悟，我想尽量简单地写下来，在这里分享。
       </Paragraph>
       <div className='flex flex-col my-6 space-y-4 w-full'>
-        {posts.map(post => <PostCard key={post.slug} post={post} endEnhancer={
-          <span className='text-neutral-300 fill-neutral-300 w-4 h-4'><ExternalLink /></span>
-        } />)}
+        {posts.map(post =>
+          <PostCard
+            key={post.slug}
+            post={post}
+            endEnhancer={
+              <span className='text-gray-300 fill-neutral-300 w-4 h-4'>
+                <ExternalLink />
+              </span>
+            }
+          />
+        )}
       </div>
     </section>
   );

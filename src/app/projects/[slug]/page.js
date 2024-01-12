@@ -16,7 +16,7 @@ export default async function Page({ params }) {
                 </div>
             </div>
             <div className='flex justify-between items-center my-2 text-sm'>
-                <p className='text-sm text-neutral-200'>
+                <p className='text-sm text-gray-200'>
                     {project.date}
                 </p>
                 <div className='flex space-x-2'>

@@ -2,8 +2,8 @@
 
 export default function Footer() {
   return (
-    <footer className='my-8'>
-      <div className='flex justify-center items-center text-neutral-500'>
+    <footer className='pb-8'>
+      <div className='flex justify-center items-center text-gray-400'>
         © 2024 Rui. All Rights Reserved.
       </div>
     </footer>

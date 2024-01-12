@@ -66,7 +66,7 @@ export default function SkillCard({ skill }) {
             `hover:animate-wave hover:backdrop-blur-sm ${getQualityColor(skill.quality)}`)}
         >
             <span style={{ color: skill.color }}><Icon title={skill.title} /></span>
-            <span className='text-neutral-300 text-sm'>{skill.title}</span>
+            <span className='text-gray-300 text-sm'>{skill.title}</span>
         </div>
     );
 }
