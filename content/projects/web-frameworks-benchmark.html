@@ -1,6 +1,6 @@
 <p>
     在写 Web 应用的时候，不管你用什么语言，大概率是会选择一个 Web Framework 的，在我的 Stack 里面，有 JVM/Rust/JS 这三大体系，所以我针对这三大体系里面的 Web
-    框架，做了一个性能测试，毕竟这些框架都是我正在或者将来要使用的。
+    框架，做了一个性能测试，毕竟这些框架都是我感兴趣的，也是正在或者将来要使用的。
 </p>
 <p>
     测试环境如下：
@@ -83,6 +83,36 @@
         <td>8.38MB</td>
     </tr>
     <tr>
+        <td>java jdk21</td>
+        <td>activej</td>
+        <td>71402.06</td>
+        <td>8.65MB</td>
+    </tr>
+    <tr>
+        <td>java jdk21</td>
+        <td>jooby undertow</td>
+        <td>63742.41</td>
+        <td>8.27MB</td>
+    </tr>
+    <tr>
+        <td>java jdk21</td>
+        <td>jooby netty</td>
+        <td>75872.36</td>
+        <td>9.84MB</td>
+    </tr>
+    <tr>
+        <td>java jdk21</td>
+        <td>jooby jetty</td>
+        <td>60496.61</td>
+        <td>7.85MB</td>
+    </tr>
+    <tr>
+        <td>java jdk21</td>
+        <td>ratpack</td>
+        <td>38764.02</td>
+        <td>3.55MB</td>
+    </tr>
+    <tr>
         <td>kotlin jdk21</td>
         <td>ktor</td>
         <td>43983.76</td>
@@ -106,11 +136,28 @@
         <td>5372.75</td>
         <td>1.3MB</td>
     </tr>
+    <tr>
+        <td>zig</td>
+        <td>zap</td>
+        <td>101451.05</td>
+        <td>18.48MB</td>
+    </tr>
 </table>
 
 <p>
-    对于 Rust 的 Rocket 可能不太准确，主要是我不知道怎么关闭或调低日志。
+    需要说明的是：
 </p>
+<ul>
+    <li>对于 Rust 的 Rocket 可能不太准确，主要是我不知道怎么关闭或调低日志。大量的日志输出，很显然，会降低性能。</li>
+    <li>返回数据方面，尽量使用框架提供的 json 序列化。如果框架没有提供，Java 方面则使用了 Jackson 包处理。其实，json 序列化本身是非常快的，所以对于结果的影响不大。</li>
+</ul>
+
 <p>
-    总的说来，Rust 🐂🍺！！。个人推荐 bun 体系的，本身基于 ziglang ， 性能仅次于 Rust，还能使用 JS/TS 写程序，而且 bun 还在不断进步，值得期待，未来我的项目也会尝试使用 Bun 系列的框架。
+    总的说来，Rust 🐂🍺！！。
 </p>
+<ul>
+    <li>在 JS 栈方面，个人推荐 bun 体系的，本身基于 Zig ，性能仅次于 Rust，还能使用 JS/TS 写程序，而且 bun 还在不断进步，值得期待，未来我的项目也会尝试使用 Bun 系列的框架。</li>
+    <li>在 Rust 栈方面，个人推荐 actix 。</li>
+    <li>在 Java 方面，在国内，工作上基本上是 SpringBoot 没啥说的。个人方面，建议使用 Jooby，非常快不说，而且支持的能力比较全面。Javalin 也是很不错的选择，简单易上手。</li>
+    <li>在 Zig 方面，还比较小众，而且 zap 框架本身支持的能力还不够，暂时不推荐。</li>
+</ul>
