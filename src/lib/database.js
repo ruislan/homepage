@@ -117,7 +117,8 @@ const database = {
                 github: 'https://github.com/ruislan/kforum',
                 demo: null,
                 versions: [
-                    { label: 'v0.10.0', state: 'dev' },
+                    { label: 'v0.11.0', state: 'plan' },
+                    { label: 'v0.10.0', state: 'alpha' },
                     { label: 'v0.9.0', state: 'alpha' },
                     { label: 'v0.8.0', state: 'alpha' },
                     { label: 'v0.7.0', state: 'alpha' },
