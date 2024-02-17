@@ -1,7 +1,6 @@
 import Header from './header';
 import Footer from './footer';
 import './globals.css';
-import Script from 'next/script';
 
 export const metadata = {
   title: 'Rui',
@@ -21,7 +20,7 @@ export default function RootLayout({ children }) {
         </main>
         {
           process.env.GOOGLE_ADS_CLIENT &&
-          <Script
+          <script
             async
             crossOrigin='anonymous'
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADS_CLIENT}`}
@@ -29,7 +28,7 @@ export default function RootLayout({ children }) {
         }
         {
           process.env.UMAMI_WEBSITE_ID &&
-          <Script
+          <script
             async
             crossOrigin='anonymous'
             src='https://analytics.eu.umami.is/script.js'
