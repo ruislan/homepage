@@ -1,5 +1,7 @@
-import database from "@/lib/database";
-import ProjectCard from "../components/project-card";
+import { unstable_noStore as noStore } from 'next/cache';
+
+import database from '@/lib/database';
+import ProjectCard from '../components/project-card';
 
 export const metadata = {
     title: '项目',
@@ -7,6 +9,7 @@ export const metadata = {
 };
 
 export default async function Page() {
+    noStore();
     const projects = database.Project.getProjects();
     return (
         <div>
