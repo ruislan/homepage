@@ -146,7 +146,6 @@ const database = {
                     { label: 'v1.2.0', state: 'alpha' },
                     { label: 'v1.0.0', state: 'alpha' },
                 ],
-                demo: 'https://ktap.ruislan.com',
                 tags: [
                     { name: 'React', },
                     { name: 'BaseWeb', },
@@ -160,7 +159,6 @@ const database = {
                 summary: 'Simple CRM 天然契合小微企业或者小团队及个人使用。以客户为中心，以人为本，促成交，存数据，挖价值，创业绩。',
                 cover: '/images/projects/simple-crm/dashboard.png',
                 github: 'https://github.com/ruislan/simple-crm',
-                demo: 'https://sc.ruislan.com',
                 versions: [
                     { label: 'v1.0.0', state: 'stable' },
                 ],
