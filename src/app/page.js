@@ -11,10 +11,8 @@ import SkillLayer from './components/skill-layer';
 import UserCard from './components/user-card';
 import UnderlineHeading from './components/underline-heading';
 
-// refresh every half an hour
-export const revalidate = 1800;
-
 async function AbilitiesSection() {
+  noStore();
   const abilities = await database.Ability.getAbilities();
   return (
     <section className='mb-8'>
@@ -54,6 +52,7 @@ async function PostsSection() {
 }
 
 async function ProjectsSection() {
+  noStore();
   const projects = await database.Project.getTopProjects();
   return (
     <section className='mb-8'>
@@ -70,6 +69,7 @@ async function ProjectsSection() {
 }
 
 async function SkillsSection() {
+  noStore();
   const skills = await database.Skill.getSkills();
   return (
     <section className='mb-8'>
