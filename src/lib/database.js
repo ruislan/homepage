@@ -17,11 +17,12 @@ const readContent = async ({ slug, isPost = true, isMarkdown = false }) => {
 const database = {
     Post: {
         data: [
-            { type: 'md', slug: 'goodbye-2023', title: '再见 2023', summary: '2023 年最后一天，我做了一个个人总结', date: '2023-12-31', hero: '/images/posts/goodbye-2023/hero.jpg' },
+            { type: 'md', slug: 'annual-2024', title: '我的 2024 年', summary: '2024 年，我的个人主题是感恩', date: '2024-12-12', hero: '/images/posts/annual/hero-2024.jpg' },
+            { type: 'md', slug: 'annual-2023', title: '我的 2023 年', summary: '2023 年最后一天，我做了一个个人总结', date: '2023-12-31', hero: '/images/posts/annual/hero-2023.jpg' },
             { type: 'md', slug: 'about-baseweb', title: '关于 BaseWeb 宣布停更给我带来的思考', summary: '一个有影响力的开源项目停更了，我想了很多。', date: '2023-12-23', hero: '/images/posts/about-baseweb/hero.jpg' },
             { type: 'md', slug: 'use-pkg', title: '使用 pkg 来打包 NodeJS 应用', summary: '用 NodeJS 做了个小工具，要给不懂程序的朋友使用，就用 pkg 打个包吧。', date: '2023-11-16', hero: '/images/posts/use-pkg/hero.jpg' },
             { type: 'md', slug: 'master', title: '真正的聪明人', summary: '最近思考了一下什么才是真正的聪明人，小有感悟', date: '2023-10-18', hero: '/images/posts/master/hero.jpg' },
-            { type: 'md', slug: 'my-2007', title: '我的 2007 年', summary: '在 2007 年，我竟然写了这么多博文', date: '2023-10-17', hero: '/images/posts/my-2007/hero.jpg' },
+            { type: 'md', slug: 'annual-2007', title: '我的 2007 年', summary: '在 2007 年，我竟然写了这么多博文', date: '2023-10-17', hero: '/images/posts/annual/hero-2007.jpg' },
             { slug: 'talk-about-digitalization', title: '浅谈数字化', summary: '简单地综合阐述一下数字化', date: '2023-02-24', hero: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE0fHxkYXRhJTIwY2VudGVyfGVufDB8fHx8MTY3NzIyNTQ4Mw&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=2000' },
             { slug: 'talk-about-lowcode', title: '"低代码“之我见', summary: '简单地综合阐述一下低代码', date: '2021-11-11', hero: '/images/posts/talk-about-lowcode/hero.jpg' },
             { type: 'md', slug: 'leetcode-note', title: 'LeetCode 笔记', summary: '为了学习 Rust 刷了 2 年的 LeetCode，总结了个笔记，收藏了一些好题。', date: '2021-09-27', hero: '/images/posts/leetcode-note/hero.jpg' },
@@ -148,7 +149,6 @@ const database = {
                 ],
                 tags: [
                     { name: 'React', },
-                    { name: 'BaseWeb', },
                     { name: 'Fastify', },
                     { name: 'Prisma', },
                     { name: 'MySQL', }

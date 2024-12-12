@@ -2,19 +2,17 @@
 import ReactMarkdown from 'react-markdown';
 import Paragraph from '@/app/components/paragraph';
 import database from '@/lib/database';
-import { revalidatePath, revalidateTag } from 'next/cache';
 
 async function getPost({ slug }) {
     const post = await database.Post.getPost(slug);
     if (!post) return null;
     await database.Post.incrementViews(slug);
-    revalidatePath('/posts', 'page');
-    revalidatePath('/', 'page');
     return post;
 }
 
 export default async function PostPage({ params }) {
-    const post = await getPost({ slug: params.slug });
+    const { slug } = await params;
+    const post = await getPost({ slug });
 
     return (
         <div className='flex flex-col box-border'>
